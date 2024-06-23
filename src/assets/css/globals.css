@@ -1,0 +1,192 @@
+@import 'mango.css';
+@import 'animations.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Astron';
+  src: url('../fonts/Astron.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Vidaloka';
+  src: url('../fonts/Vidaloka-Regular.woff') format('woff');
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body, html {
+  color: var(--mango-default-text);
+  background-color: var(--mango-default-background);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0
+}
+
+.astron {
+  font-family: 'Astron', sans-serif;
+  letter-spacing: .1em;
+}
+
+.vidaloka {
+  font-family: 'Vidaloka', sans-serif;
+  font-weight: 600;
+  color: #cbad62;
+  font-size: 14pt;
+}
+
+.vidaloka-sm {
+  font-family: 'Vidaloka', sans-serif;
+  font-weight: 600;
+  color: #cbad62;
+  font-size: 10pt;
+}
+
+.primary {
+  color: var(--primary);
+}
+
+[data-screen] {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+}
+
+[data-screen='1'] {
+  z-index: 100;
+}
+
+[data-screen='2'] {
+  z-index: 50;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+mark {
+  background: none;
+}
+
+.golden {
+  --bg-size: 100%;
+  -webkit-text-fill-color: transparent;
+  background: radial-gradient(circle at center, #f1e49a, #956c1d, #cf9f45, #956c1d) 0 0 / var(--bg-size) 100%;
+  background-clip: content-box;
+  -webkit-background-clip: text;
+}
+
+.golden-small {
+  --bg-size: 300%;
+  -webkit-text-fill-color: transparent;
+  background: radial-gradient(circle at center, #f1e49a, #956c1d, #cf9f45, #956c1d) 0 0 / var(--bg-size) 100%;
+  background-position: center;
+  background-clip: content-box;
+  -webkit-background-clip: text;
+}
+
+.bg-fade-black {
+  background-image: linear-gradient(0deg, var(--mango-black), rgb(0,0,0,0));
+}
+
+.menu-page p, .menu-page ul {
+  font-size: 8pt;
+  color: #fff;
+  font-weight: 300;
+}
+
+.menu-page ul {
+  list-style: '•';
+}
+
+.menu-page ul li {
+  padding-left: .25rem;
+}
+
+.menu-item:not(.menu-item:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+#drinks::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle at center, #1f1f1f, #040404);
+  z-index: 1;
+}
+
+#header {
+  background-color:var(--mango-tropical-maroon);
+}
+
+#header::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url('/mango-main.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: .5;
+  mix-blend-mode: overlay;
+  filter: blur(3px);
+  z-index: 1;
+}
+
+#festival {
+  background-color:var(--mango-tropical-maroon);
+}
+
+#festival::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url('/mango-lamps.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: .5;
+  mix-blend-mode: overlay;
+  filter: blur(3px);
+  z-index: 1;
+}
+
+#cardapio::before, #menu-mobile::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url('/mood/mood-1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: .5;
+  mix-blend-mode: overlay;
+  filter: blur(3px);
+  z-index: 1;
+}
+

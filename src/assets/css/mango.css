@@ -1,0 +1,104 @@
+:root {
+    --mango-white: #ffffff;
+    --mango-light: #f8f9fa;
+    --mango-black: #070c0c;
+
+    --mango-tropical-salmon: #F25C78;
+    --mango-tropical-pink: #F213B7;
+    --mango-tropical-maroon: #4A2559;
+    --mango-tropical-teal: #1B778C;
+    --mango-tropical-teal-light: #04BFAD;
+
+    --mango-ocean-blue: #1755A6;
+    --mango-ocean-teal-1: #C2DCF2;
+    --mango-ocean-teal-2: #1B5959;
+    --mango-ocean-teal-3: #33A691;
+    --mango-ocean-teal-4: #5FD9B6;
+
+    --mango-neon-pink: #F205B3;
+    --mango-neon-purple: #7D07F2;
+    --mango-neon-green: #0ABF04;
+    --mango-neon-green-2: #078C03;
+    --mango-neon-orange: #F29F05;
+
+    --mango-default-text: var(--mango-light);
+    --mango-default-background: var(--mango-black);
+
+    --mango-primary: var(--mango-neon-orange);
+}
+
+.mango-white {
+    color: #ffffff;
+}
+
+.mango-light {
+    color: #f8f9fa;
+}
+
+.mango-black {
+    color: #070c0c;
+}
+
+.mango-tropical-salmon {
+    color: #F25C78;
+}
+
+.mango-tropical-pink {
+    color: #F213B7;
+}
+
+.mango-tropical-maroon {
+    color: #4A2559;
+}
+
+.mango-tropical-teal {
+    color: #1B778C;
+}
+
+.mango-tropical-teal-light {
+    color: #04BFAD;
+}
+
+.mango-ocean-blue {
+    color: #1755A6;
+}
+
+.mango-ocean-teal-1 {
+    color: #C2DCF2;
+}
+
+.mango-ocean-teal-2 {
+    color: #1B5959;
+}
+
+.mango-ocean-teal-3 {
+    color: #33A691;
+}
+
+.mango-ocean-teal-4 {
+    color: #5FD9B6;
+}
+
+.mango-neon-pink {
+    color: #F205B3;
+}
+
+.mango-neon-purple {
+    color: #7D07F2;
+}
+
+.mango-neon-green {
+    color: #0ABF04;
+}
+
+.mango-neon-green-2 {
+    color: #078C03;
+}
+
+.mango-neon-orange {
+    color: #F29F05;
+}
+
+.mango-gradient-1 {
+    background-image: linear-gradient(90deg, var(--mango-ocean-teal-4), var(--mango-ocean-teal-1));
+}
