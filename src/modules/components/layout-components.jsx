@@ -1,4 +1,4 @@
-import {list} from './utils';
+import {list} from '../utils';
 /**
  * @param {Object} props 
  * @param {string} props.id
@@ -93,7 +93,7 @@ export function Loading({width = 64}) {
     const size = width + 'px';
     return (
         <div className='fixed z-[999] top-0 left-0 w-screen h-screen flex items-center justify-center bg-slate-950'>
-            <img src="/svg/mango-loading.svg"
+            <img src="/img/svg/mango-loading.svg"
                 width={size}
                 height={size}
                 draggable='false'

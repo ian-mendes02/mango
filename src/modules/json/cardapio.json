@@ -3,7 +3,7 @@
 		"title": "Fritas",
 		"price": "29,00",
 		"description": "300g de batatas fritas na hora. Acompanha molho à base de maionese e shoyu.",
-		"categories": "cozinha"
+		"category": "cozinha"
 	},
 	{
 		"title": "Fish & Chips",

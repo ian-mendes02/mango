@@ -1,4 +1,9 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -9,7 +14,6 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -22,6 +26,12 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "modules/*": [
+        "./src/modules/*"
+      ],
+      "components/*": [
+        "./src/modules/components/*"
       ]
     },
     "plugins": [
@@ -30,13 +40,19 @@
       }
     ]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
   "exclude": [
     "node_modules",
     "/archive/*"
+  ],
+  "include": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.jsx",
+    "**/*.tsx",
+    "**/*.mjs",
+    "**/*.mts",
+    "**/*.cjs",
+    "**/*.cts",
+    ".next/types/**/*.ts"
   ]
 }

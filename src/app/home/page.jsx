@@ -1,15 +1,11 @@
 'use client';
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { Section, Content, ContentDefault, Container, Wrapper, Loading, Divider, Grid } from '@/modules/layout-components';
-import { Gallery } from '@/modules/gallery';
-import { list, url, scrollToTop } from '@/modules/utils';
+import { Section, Content, ContentDefault, Container, Wrapper, Loading, Divider, Grid } from 'components/layout-components';
+import { Gallery } from 'components/gallery';
+import { list, url, scrollToTop } from 'modules/utils';
 import '@/assets/css/carousel.css';
 
 export default function Main () {
-    /**
-     * @param {string} el
-     */
-    const $ = ( el ) => document.querySelector( el );
 
     const [ isMobile, setisMobile ] = useState( false );
     const [ isLoading, setIsLoading ] = useState( true );
@@ -20,7 +16,7 @@ export default function Main () {
     const menuButtonRef = useRef( null );
 
     useEffect( () => {
-        require( '@/modules/font-awesome' );
+        require( '@/modules/lib/font-awesome' );
         const viewport = window.visualViewport;
         const checkScreenSize = () => setisMobile( viewport.width <= 820 );
         checkScreenSize();
@@ -141,7 +137,7 @@ export default function Main () {
                     </div>}
                     {!isMobile && <div className='w-screen bg-slate-900 bg-opacity-80 px-8 py-4 flex justify-between'>
                         <Wrapper className='items-center'>
-                            <img src="/svg/mascot.svg" alt="" draggable="false" className='w-8 mr-4' />
+                            <img src="/img/svg/mascot.svg" alt="" draggable="false" className='w-8 mr-4' />
                             <Container>
                                 <h1 className='astron mango-neon-orange'>MANGO</h1>
                                 <h6 className='astron mango-neon-orange text-xs'>CAFÉ</h6>
@@ -163,11 +159,11 @@ export default function Main () {
                     <ContentDefault className='py-16'>
                         <Container className='items-center'>
                             <div className="flex items-center">
-                                <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-24' />
-                                <img src="/svg/mascot.svg" alt="" draggable='false' className='w-20 mx-4' />
-                                <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-24' />
+                                <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-24' />
+                                <img src="/img/svg/mascot.svg" alt="" draggable='false' className='w-20 mx-4' />
+                                <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-24' />
                             </div>
-                            <img src="/svg/logo.svg" alt="" draggable='false' className='w-64 my-4' />
+                            <img src="/img/svg/logo.svg" alt="" draggable='false' className='w-64 my-4' />
                             <span className='mango-neon-orange astron'>CAFÉ</span>
                         </Container>
                         <Divider className='my-8 w-1/2 mx-auto' />
@@ -317,9 +313,9 @@ export default function Main () {
                 <Content className='relative z-10'>
                     <ContentDefault>
                         <div className="flex items-center justify-center">
-                            <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-24' />
-                            <img src="/svg/mascot.svg" alt="" draggable='false' className='w-20 mx-4' />
-                            <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-24' />
+                            <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-24' />
+                            <img src="/img/svg/mascot.svg" alt="" draggable='false' className='w-20 mx-4' />
+                            <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-24' />
                         </div>
                         <h1 className='astron mango-neon-orange text-center my-4'>FESTIVAL<br />OMAKASE</h1>
                         <Wrapper className='max-[820px]:text-center items-center'>
@@ -331,12 +327,12 @@ export default function Main () {
                                 <p className='text-xs italic text-white'>Para a sua segurança e bem-estar, caso tenha alergias ou restrições alimentares, favor avisar nossa equipe. O Mango agradece sua colaboração!</p>
                             </Container>
                             <Gallery className='grow justify-center items-center max-[820px]:grow-0 max-[820px]:w-full'>
-                                <img src='/placeholder.webp' className='w-96 h-96' />
+                                <img src='/img/placeholder.webp' className='w-96 h-96' />
                                 <div className="w-96 h-96 grid grid-cols-2 grid-rows-2 gap-2 m-2 max-[820px]:mx-0">
-                                    <img src='/placeholder.webp' className='w-full h-full' />
-                                    <img src='/placeholder.webp' className='w-full h-full' />
-                                    <img src='/placeholder.webp' className='w-full h-full' />
-                                    <img src='/placeholder.webp' className='w-full h-full' />
+                                    <img src='/img/placeholder.webp' className='w-full h-full' />
+                                    <img src='/img/placeholder.webp' className='w-full h-full' />
+                                    <img src='/img/placeholder.webp' className='w-full h-full' />
+                                    <img src='/img/placeholder.webp' className='w-full h-full' />
                                 </div>
                             </Gallery>
                         </Wrapper>
@@ -349,9 +345,9 @@ export default function Main () {
                     <ContentDefault className='relative z-[2]'>
                         <Container className='text-center'>
                             <div className="flex items-center justify-center">
-                                <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-12 mb-2' />
+                                <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-12 mb-2' />
                                 <h1 className='astron mango-neon-orange mx-4 text-xl'>CARDÁPIO</h1>
-                                <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-12 mb-2' />
+                                <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-12 mb-2' />
                             </div>
                             <Divider className='my-2' />
                         </Container>
@@ -373,7 +369,7 @@ export default function Main () {
                                         <Title name="SAN-JUU" />
                                         <p>50 peças</p>
                                     </div>
-                                    <img src="/pratos/combinados.webp" alt="" width={150} height={150} />
+                                    <img src="/img/pratos/combinados.webp" alt="" width={150} height={150} />
                                 </div>
                             </div>
 
@@ -383,11 +379,11 @@ export default function Main () {
                                         <Title name="SALMÃO TARTARE" />
                                         <p>Cubos de salmão fresco sobre uma cama de avocado temperado, cobertos de tobiko.</p>
                                     </div>
-                                    <img src="/pratos/tartare.webp" alt="" width={100} height={100} className='w-full mt-auto mb-0' />
+                                    <img src="/img/pratos/tartare.webp" alt="" width={100} height={100} className='w-full mt-auto mb-0' />
                                 </div>
 
                                 <div className="menu-item grid grid-cols-[30%_70%] gap-2">
-                                    <img src="/pratos/ceviche.webp" alt="" width={100} height={100} className='w-full mt-auto mb-0' />
+                                    <img src="/img/pratos/ceviche.webp" alt="" width={100} height={100} className='w-full mt-auto mb-0' />
                                     <div>
                                         <Title name="CEVICHE" />
                                         <p>Pescada branca, lula, camarão e polvo, cozidos na acidez do suco de limão.</p>
@@ -404,7 +400,7 @@ export default function Main () {
                                         <li>Salmão</li>
                                         <li>Camarão</li>
                                     </ul>
-                                    <img src="/pratos/hot_roll.webp" alt="" width={150} height={150} className='m-2' />
+                                    <img src="/img/pratos/hot_roll.webp" alt="" width={150} height={150} className='m-2' />
                                 </div>
                             </div>
 
@@ -427,8 +423,8 @@ export default function Main () {
                 <Content>
                     <ContentDefault>
                         <Container className='mx-auto items-center'>
-                            <img src="/svg/mascot.svg" alt="" draggable="false" className='w-12 mb-2' />
-                            <img src="/svg/logo.svg" alt="" draggable="false" className='w-36' />
+                            <img src="/img/svg/mascot.svg" alt="" draggable="false" className='w-12 mb-2' />
+                            <img src="/img/svg/logo.svg" alt="" draggable="false" className='w-36' />
                             <Wrapper className='text-white text-2xl items-center text-center my-4'>
                                 <a href={socials.instagram} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                     <i className="fa-brands fa-instagram" aria-hidden="true"></i>

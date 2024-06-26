@@ -1,6 +1,6 @@
 'use client';
 import {useRef} from 'react';
-import {list} from './utils';
+import {list} from '../utils';
 
 export const Caret = (props) => {
     return (

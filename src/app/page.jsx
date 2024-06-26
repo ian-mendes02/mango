@@ -1,10 +1,10 @@
 "use client";
 import {useEffect, useState} from 'react';
-import {Divider, Wrapper, Loading} from '@/modules/layout-components';
+import {Divider, Wrapper, Loading} from 'components/layout-components';
 export default function Main() {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        require('@/modules/font-awesome');
+        require('@/modules/lib/font-awesome');
         document.title = "Mango Café - SJC";
     }, []);
     const socials = {
@@ -20,9 +20,9 @@ export default function Main() {
                 <div className="relative z-50">
                     <div className='flex flex-col items-center mango-neon-orange w-full text-center'>
                         <div className="flex items-center my-4">
-                            <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-12' />
-                            <img src="/svg/mascot.svg" alt="" draggable='false' className='w-16 mx-4' />
-                            <img src="/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-12' />
+                            <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 w-12' />
+                            <img src="/img/svg/mascot.svg" alt="" draggable='false' className='w-16 mx-4' />
+                            <img src="/img/svg/decor.svg" alt="" draggable='false' className='-scale-y-100 -scale-x-100 w-12' />
                         </div>
                         <p className='astron tracking-[.25em] text-xl font-extrabold'>MANGO</p>
                         <p className='astron'>CAFÉ</p>
@@ -38,7 +38,7 @@ export default function Main() {
                             <i className='fa-solid fa-utensils mx-2'></i>
                             <span>Nosso <strong>cardápio</strong></span>
                         </a>
-                        <a href='menu/carta-drinks.pdf' target='_blank' className='flex justify-center items-center rounded-md border-2 border-[color:var(--mango-neon-orange)] p-2 w-full text-center font-semibold my-2'>
+                        <a href='/carta-drinks.pdf' target='_blank' className='flex justify-center items-center rounded-md border-2 border-[color:var(--mango-neon-orange)] p-2 w-full text-center font-semibold my-2'>
                             <i className='fa-solid fa-cocktail mx-2'></i>
                             <span>Nossa <strong>carta de drinks</strong></span>
                         </a>

@@ -12,7 +12,7 @@ export default function RootLayout({children}) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/mascot.ico" type="image/x-icon"/>
+        <link rel="icon" href="/img/mascot.ico" type="image/x-icon"/>
       </head>
       <body className={montserrat.className}>{children}</body>
     </html>

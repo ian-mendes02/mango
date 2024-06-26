@@ -1,5 +1,5 @@
 import {useRef, useEffect, useState, cloneElement, useMemo, Children} from 'react';
-import {list} from './utils';
+import {list} from '../utils';
 
 export function Gallery({children, className}) {
 
@@ -94,7 +94,7 @@ export function Gallery({children, className}) {
         ) : (
             <div
                 className={list('bg-cover bg-center rounded-lg shadow-md cursor-pointer hover:brightness-90 duration-100 ease-out', content.props.className)}
-                style={{backgroundImage: `url(${content.props.src || 'placeholder.webp'})`}}
+                style={{backgroundImage: `url(${content.props.src || '/img/placeholder.webp'})`}}
                 onClick={() => toggleFullscreen(_content)}
             ></div>
         );
