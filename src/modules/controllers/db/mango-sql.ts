@@ -34,7 +34,7 @@ export async function get_user( param: number | string ): Promise<QueryResultRow
 
 /**
  * Retrieves all menu items from database.
- * @returns {Promise<QueryResultRow[]|any[]>} Array of row objects on success or empty array on failure
+ * @returns {Promise<QueryResultRow[]|[]>} Array of row objects on success or empty array on failure
  */
 export async function get_menu_items(): Promise<QueryResultRow[] | []> {
     try {
