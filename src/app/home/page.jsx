@@ -1,19 +1,24 @@
 'use client';
-import { useState, useEffect, useRef, useMemo } from 'react';
-import { Section, Content, ContentDefault, Container, Wrapper, Loading, Divider, Grid } from 'components/layout-components';
-import { Gallery } from 'components/gallery';
-import { list, url, scrollToTop } from 'modules/utils';
+import {useState, useEffect, useRef, useMemo} from 'react';
+import {Section, Content, ContentDefault, Container, Wrapper, Loading, Divider, Grid} from 'components/layout-components';
+import {Gallery} from 'components/gallery';
+import {list, url, scrollToTop} from 'modules/utils';
 import '@/assets/css/carousel.css';
 
-export default function Main () {
+export default function Main() {
 
-    const [ isMobile, setisMobile ] = useState( false );
-    const [ isLoading, setIsLoading ] = useState( true );
-    const [ showSideMenu, setShowSideMenu ] = useState( false );
-    const [ menuClassName, setMenuClassName ] = useState( null );
-    const [ modalClassName, setModalClassName ] = useState( null );
-    const menuRef = useRef( null );
-    const menuButtonRef = useRef( null );
+    const [isMobile, setisMobile] = useState( false )
+        , [isLoading, setIsLoading] = useState( true )
+        , [showSideMenu, setShowSideMenu] = useState( false )
+        , [menuClassName, setMenuClassName] = useState( null )
+        , [modalClassName, setModalClassName] = useState( null )
+        , menuRef = useRef( null )
+        , menuButtonRef = useRef( null )
+        , socials = {
+            instagram: "https://www.instagram.com/mangocafesjc/",
+            facebook: "https://www.facebook.com/profile.php?id=61558132046582",
+            whatsapp: "https://wa.me/5512997828401"
+        };
 
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
@@ -24,13 +29,7 @@ export default function Main () {
         return () => viewport.removeEventListener( 'resize', checkScreenSize );
     }, [] );
 
-    const socials = {
-        instagram: "https://www.instagram.com/mangocafesjc/",
-        facebook: "https://www.facebook.com/profile.php?id=61558132046582",
-        whatsapp: "https://wa.me/5512997828401"
-    };
-
-    function toggleSideMenu ( bool ) {
+    function toggleSideMenu( bool ) {
         if ( !bool ) {
             setMenuClassName( 'slide-out' );
             setModalClassName( 'lighten' );
@@ -42,12 +41,12 @@ export default function Main () {
         }
     }
 
-    const Menu = ( { options } ) => {
-        const Option = ( { name, target, icon } ) => {
+    const Menu = ( {options} ) => {
+        const Option = ( {name, target, icon} ) => {
             return (
                 <li
                     className='p-4 hover:bg-slate-800 duration-150 ease-out cursor-pointer border-b border-slate-800 last-of-type:border-none flex items-center'
-                    onClick={() => { scrollToTop( target ); toggleSideMenu( false ); }}>
+                    onClick={() => {scrollToTop( target ); toggleSideMenu( false );}}>
                     <span><i className={`fa-solid fa-${icon} align-text-bottom mr-4`} aria-hidden='true'></i>{name}</span>
                 </li>
             );
@@ -59,15 +58,15 @@ export default function Main () {
                     name={i.name}
                     target={i.target}
                     icon={i.icon}
-                /> ), [ options ]
+                /> ), [options]
         );
         useEffect( () => {
-            function validTouchInput ( e ) {
+            function validTouchInput( e ) {
                 return menuButtonRef.current != e.target
                     && !menuButtonRef.current?.contains( e.target )
                     && !menuRef.current?.contains( e.target );
             };
-            function handleClickOutside ( e ) {
+            function handleClickOutside( e ) {
                 if ( validTouchInput( e ) )
                     toggleSideMenu( false );
             }
@@ -89,11 +88,11 @@ export default function Main () {
         );
     };
 
-    function Title ( { name, price, className } ) {
+    function Title( {name, price, className} ) {
         var value = price?.split( "," );
         return (
             <h3 className={list( 'mango-neon-orange font-semibold text-xl', className )}>{name}
-                {value && <span> - {value[ 0 ]}<sup><small>,{value[ 1 ]}</small></sup></span>}
+                {value && <span> - {value[0]}<sup><small>,{value[1]}</small></sup></span>}
             </h3>
         );
     }
@@ -105,10 +104,10 @@ export default function Main () {
             {isLoading && <Loading />}
 
             {isMobile && <Menu options={[
-                { name: 'Home', target: '#header', icon: 'house' },
-                { name: 'Drinks', target: '#drinks', icon: 'martini-glass-citrus' },
-                { name: 'Festival', target: '#festival', icon: 'champagne-glasses' },
-                { name: 'Cardápio', target: '#cardapio', icon: 'utensils' }
+                {name: 'Home', target: '#header', icon: 'house'},
+                {name: 'Drinks', target: '#drinks', icon: 'martini-glass-citrus'},
+                {name: 'Festival', target: '#festival', icon: 'champagne-glasses'},
+                {name: 'Cardápio', target: '#cardapio', icon: 'utensils'}
             ]} />}
 
             {isMobile && <div className='fixed top-0 right-0 w-full flex p-4 justify-end z-50 bg-slate-900 bg-opacity-90 shadow-md backdrop-blur-sm' ref={menuButtonRef}>
@@ -242,7 +241,7 @@ export default function Main () {
                                             <p className='text-sm font-light'>Curaçao Blue, Vodka Smirnoff, leite condensado, limão espremido, bala Halls azul e gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{ backgroundImage: url() }}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -251,7 +250,7 @@ export default function Main () {
                                             <p className='text-sm font-light'>Soju, xarope de amarena, licor fino, suco de limão siciliano e espuma de yuzu.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{ backgroundImage: url() }}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -260,7 +259,7 @@ export default function Main () {
                                             <p className='text-sm font-light'>Whisky Johnny Walker Blonde, maracujá, xarope rico de açúcar demerara com infusão de canela, suco de limão tahiti e gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{ backgroundImage: url() }}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
                                         </Container>
                                     </Grid>
                                 </Grid>
@@ -271,7 +270,7 @@ export default function Main () {
                                             <p className='text-sm font-light'>Tequila José Cuervo Prata, licor fino, suco de limão tahiti e gelo, servido em uma taça com crosta de sal.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{ backgroundImage: url() }}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -280,7 +279,7 @@ export default function Main () {
                                             <p className='text-sm font-light'>Pisco capel, suco de limão tahiti, xarope de açúcar demerara, bitter floral e cubos de gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{ backgroundImage: url() }}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -289,7 +288,7 @@ export default function Main () {
                                             <p className='text-sm font-light'>Campari, Jack Daniels, Vermute Cinzano, Bitter floral e cubos de gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{ backgroundImage: url() }}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
                                         </Container>
                                     </Grid>
                                 </Grid>

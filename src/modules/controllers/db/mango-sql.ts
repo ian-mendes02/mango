@@ -13,8 +13,9 @@ export async function query( query_string: string ): Promise<QueryResult | null>
     try {
         var results = await pool().query( query_string );
         return results;
+    } catch {
+        return null;
     }
-    catch {return null;}
 }
 
 /**
@@ -29,7 +30,9 @@ export async function get_user( param: number | string ): Promise<QueryResultRow
         var {rows} = await pool().query( query, [param] );
         return rows[0] || null;
     }
-    catch {return null;}
+    catch {
+        return null;
+    }
 }
 
 /**
@@ -40,8 +43,9 @@ export async function get_menu_items(): Promise<QueryResultRow[] | []> {
     try {
         var {rows} = await pool().query( 'SELECT * FROM menu_items' );
         return rows || [];
+    } catch {
+        return [];
     }
-    catch {return [];}
 }
 
 /**
@@ -55,8 +59,28 @@ export async function get_menu_item( param: number | string ): Promise<QueryResu
     try {
         var {rows} = await pool().query( query, [param] );
         return rows[0] || null;
+    } catch {
+        return null;
     }
-    catch {return null;}
+}
+
+/**
+ * Retrieves menu items by category.
+ */
+export async function get_items_by_cat( ...cat_names: string[] ): Promise<object> {
+    var items: any = {};
+    if (cat_names.length != 0) {
+        for (let name of cat_names) {
+            try {
+                var query = `SELECT * FROM menu_items WHERE categories LIKE '${name}%'`;
+                var {rows} = await pool().query( query );
+                items[name] = rows || [];
+            } catch {
+                items[name] = [];
+            }
+        }
+    }
+    return items;
 }
 
 /**
@@ -70,8 +94,9 @@ export async function insert( table_name: string, columns: string[], values: any
     try {
         await pool().query( query, values );
         return true;
+    } catch {
+        return false;
     }
-    catch {return false;}
 }
 
 /**
@@ -85,6 +110,7 @@ export async function update( table_name: string, id: number, columns: string[],
     try {
         await pool().query( query, [id].concat( values ) );
         return true;
+    } catch {
+        return false;
     }
-    catch {return false;}
 }
