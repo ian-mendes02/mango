@@ -22,11 +22,10 @@ export default function Main() {
 
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
-        const viewport = window.visualViewport;
-        const checkScreenSize = () => setisMobile( viewport.width <= 820 );
+        const checkScreenSize = () => setisMobile( window.visualViewport.width <= 820 );
         checkScreenSize();
-        viewport.addEventListener( 'resize', checkScreenSize );
-        return () => viewport.removeEventListener( 'resize', checkScreenSize );
+        window.visualViewport.addEventListener( 'resize', checkScreenSize );
+        return () => window.visualViewport.removeEventListener( 'resize', checkScreenSize );
     }, [] );
 
     function toggleSideMenu( bool ) {
@@ -61,19 +60,13 @@ export default function Main() {
                 /> ), [options]
         );
         useEffect( () => {
-            function validTouchInput( e ) {
-                return menuButtonRef.current != e.target
-                    && !menuButtonRef.current?.contains( e.target )
-                    && !menuRef.current?.contains( e.target );
+            let validTouchInput = e => {
+                var btn = menuButtonRef.current, menu = menuRef.current, t = e.target;
+                return btn != t && !btn?.contains( t ) && !menu?.contains( t );
             };
-            function handleClickOutside( e ) {
-                if ( validTouchInput( e ) )
-                    toggleSideMenu( false );
-            }
+            let handleClickOutside = e => validTouchInput( e ) && toggleSideMenu( false );
             window.addEventListener( 'mousedown', handleClickOutside );
-            return () => {
-                window.removeEventListener( 'mousedown', handleClickOutside );
-            };
+            return () => window.removeEventListener( 'mousedown', handleClickOutside );
         }, [] );
 
         return showSideMenu && (

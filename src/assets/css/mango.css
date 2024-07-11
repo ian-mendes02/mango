@@ -21,6 +21,8 @@
     --mango-neon-green-2: #078C03;
     --mango-neon-orange: #F29F05;
 
+    --mango-brown: #83603c;
+
     --mango-default-text: var(--mango-light);
     --mango-default-background: var(--mango-black);
 
@@ -101,4 +103,20 @@
 
 .mango-gradient-1 {
     background-image: linear-gradient(90deg, var(--mango-ocean-teal-4), var(--mango-ocean-teal-1));
+}
+
+@keyframes flash {
+    0% {
+        backdrop-filter: brightness(100%);
+    }
+    50% {
+        backdrop-filter: brightness(200%)
+    }
+    100% {
+        backdrop-filter: brightness(100%)
+    }
+}
+
+.flash {
+    animation: flash 1000ms ease-out;
 }

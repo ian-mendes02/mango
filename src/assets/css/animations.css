@@ -25,6 +25,15 @@
     }
 }
 
+@keyframes slide-in-right {
+    from {
+        transform: translateX(110%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
 @keyframes slide-up {
     from {
         transform: translateY(150%);
@@ -56,6 +65,14 @@
 
 .slide-out {
     animation: slide-in 200ms ease-out forwards reverse;
+}
+
+.slide-in-right {
+    animation: slide-in-right 200ms ease-out forwards;
+}
+
+.slide-out-right {
+    animation: slide-in-right 200ms ease-out forwards reverse;
 }
 
 .slide-up {

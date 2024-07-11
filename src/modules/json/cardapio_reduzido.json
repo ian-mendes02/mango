@@ -1,0 +1,96 @@
+[
+	{
+		"title": "Fritas",
+		"price": "29,00",
+		"description": "300g de batatas fritas na hora. Acompanha molho à base de maionese e shoyu.",
+		"category": "cozinha"
+	},
+	{
+		"title": "Fish & Chips",
+		"price": "58,00",
+		"description": "Conhecida da Europa à Oceania por ser a combinação perfeita de iscas de peixe e fritas. Acompanha molho especial do chef.",
+		"category": "cozinha"
+	},
+	{
+		"title": "Pork & Chips",
+		"price": "58,00",
+		"description": "Barriga de porco marinada na cachaça. Acompanha fritas e molho barbecue chinês.",
+		"category": "cozinha"
+	},
+	{
+		"title": "Long Tail",
+		"price": "79,00",
+		"description": "Porção de lula, camarão empanado e iscas de peixe. Finalização especial à moda da casa.",
+		"category": "cozinha"
+	},
+	{
+		"title": "Tuk-Tuk",
+		"price": "60,00",
+		"description": "Uma porção de barriga de porco, beef satay e karaage de frango - chega quentinho da nossa cozinha até sua mesa, rápido como um tuk-tuk!",
+		"category": "cozinha"
+	},
+	{
+		"title": "Okashi",
+		"price": "22,00",
+		"description": "3 unidades de bolinhos de costela minga, servidos com a nossa deliciosa geleia de maçã com pimenta.",
+		"category": "cozinha"
+	},
+	{
+		"title": "Satay",
+		"price": "19,00",
+		"description": "Espetos temperados e grelhados no autêntico estilo de comida de rua tailandesa. Escolha entre carne bovina, suína, frango ou vegetariano, se preferir. Nossa equipe pode te dar uma sugestão de molho.",
+		"category": "cozinha"
+	},
+	{
+		"title": "COMBINADOS",
+		"price": "",
+		"description": "Peças variadas de harumaki, joe, nigiri, hossomaki, sashimi e hot roll. Tudo isso naquele jeitinho brasileiro que deixa tudo mais gostoso.",
+		"category": "sushi_bar"
+	},
+	{
+		"title": "JUU",
+		"price": "55,00",
+		"description": "15 peças",
+		"category": "sushi_bar"
+	},
+	{
+		"title": "NI-JUU",
+		"price": "126,00",
+		"description": "25 peças",
+		"category": "sushi_bar"
+	},
+	{
+		"title": "SAN-JUU",
+		"price": "180,00",
+		"description": "50 peças",
+		"category": "sushi_bar"
+	},
+	{
+		"title": "Ceviche",
+		"price": "32,00",
+		"description": "Pescada branca, lula, camarão e polvo, cozidos na acidez do suco de limão. Esse tesouro das ilhas do Pacífico é servido com um molho à base de limão chamado leche de tigre. Acompanha chips de batata doce.",
+		"category": "sushi_bar"
+	},
+	{
+		"title": "Hot Roll",
+		"price": "25,00",
+		"description": "5 peças de hot roll - sushi empanado e frito que costuma agradar quem não curte sushi. O recheio fica a sua escolha:",
+		"options": [
+			"Atum",
+			"Salmão",
+			"Camarão"
+		],
+		"category": "sushi_bar"
+	},
+	{
+		"title": "Temaki",
+		"price": "58,00",
+		"description": "Um cone de gohan enrolado em nori crocante. Nossas opções de recheio:",
+		"options": [
+			"Atum",
+			"Salmão (grelhado opcional)",
+			"Salmão Philadelphia"
+		],
+		"category": "sushi_bar"
+	}
+]

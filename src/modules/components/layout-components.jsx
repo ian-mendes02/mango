@@ -92,7 +92,7 @@ export function Badge({children, width = 24, className = ''}) {
 export function Loading({width = 64}) {
     const size = width + 'px';
     return (
-        <div className='fixed z-[999] top-0 left-0 w-screen h-screen flex items-center justify-center bg-slate-950'>
+        <div className='fixed z-[999] top-0 left-0 w-screen h-screen flex items-center justify-center bg-neutral-800 bg-opacity-90 backdrop-blur-3xl'>
             <img src="/img/svg/mango-loading.svg"
                 width={size}
                 height={size}

@@ -1,0 +1,312 @@
+[
+	{
+		"title": "Jarra de suco (Limão, abacaxi, abacaxi com hortelã, e morango)",
+		"price": "18,90",
+		"category": "drinks,sucos"
+	},
+	{
+		"title": "Limonada suíça",
+		"price": "24,90",
+		"category": "drinks,sucos"
+	},
+	{
+		"title": "Caipirinha de geleia de abacaxi com pimenta (Sagatiba, Absolut ou Soju)",
+		"price": "32,90",
+		"category": "drinks,caipirinhas"
+	},
+	{
+		"title": "Caipirinha 3 limões (Sagatiba, Absolut ou Soju)",
+		"price": "32,90",
+		"category": "drinks,caipirinhas"
+	},
+	{
+		"title": "Caipirinha tradicional (Sagatiba, Absolut ou Soju)",
+		"price": "30,90",
+		"category": "drinks,caipirinhas"
+	},
+	{
+		"title": "Caipirinha tradicional (Cachaça 51, vodka Smirnoff ou Sake)",
+		"price": "24,90",
+		"category": "drinks,caipirinhas"
+	},
+	{
+		"title": "Gin Tônica - sabores (Melancia, Tropical ou Morango com Pêssego)",
+		"price": "26,90",
+		"category": "drinks,gin_tonica"
+	},
+	{
+		"title": "Gin Tônica tradicional",
+		"price": "32,90",
+		"category": "drinks,gin_tonica"
+	},
+	{
+		"title": "Gin Tônica da Casa",
+		"price": "32,90",
+		"category": "drinks,gin_tonica"
+	},
+	{
+		"title": "Aperol Spritz",
+		"price": "29,90",
+		"category": "drinks,aperitivos"
+	},
+	{
+		"title": "Cuba Libre",
+		"price": "26,90",
+		"category": "drinks,aperitivos"
+	},
+	{
+		"title": "Água (500 ml - com ou sem gás)",
+		"price": "5,90",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Coca-cola (normal ou zero)",
+		"price": "7,00",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Fanta Guaraná (normal ou zero)",
+		"price": "7,00",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Fanta Laranja",
+		"price": "7,00",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Schweppes Citrus",
+		"price": "7,00",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Schweppes Ginger Ale",
+		"price": "8,90",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Schweppes Tônica (normal ou zero)",
+		"price": "7,90",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Redbull",
+		"price": "18,90",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Sprite Lemon Fresh (500 ml)",
+		"price": "12,90",
+		"category": "drinks,bebidas"
+	},
+	{
+		"title": "Amstel",
+		"price": "18,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Amstel Ultra",
+		"price": "19,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Corona",
+		"price": "12,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Heineken",
+		"price": "18,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Amstel (600ml)",
+		"price": "19,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Heineken (600ml)",
+		"price": "12,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Three Lions Session Ale (330ml)",
+		"price": "12,90",
+		"category": "drinks,cervejas_e_chopp"
+	},
+	{
+		"title": "Campari - tônica ou citrus",
+		"price": "26,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Frozen Daiquiri de morango",
+		"price": "26,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Mojito",
+		"price": "26,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Margarita tradicional",
+		"price": "32,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Margarita de maracujá",
+		"price": "32,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Negroni",
+		"price": "32,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Boulevardie",
+		"price": "35,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Ganbatte",
+		"price": "34,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Pisco Sour",
+		"price": "32,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Bourbon Sour",
+		"price": "32,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Passion",
+		"price": "32,90",
+		"category": "drinks,cocktails"
+	},
+	{
+		"title": "Mousse (Maracujá ou morango)",
+		"price": "18,90",
+		"category": "drinks,sobremesas"
+	},
+	{
+		"title": "Soda Italiana",
+		"price": "18,90",
+		"category": "drinks,sobremesas"
+	},
+	{
+		"title": "Mango Fresh",
+		"price": "26,90",
+		"category": "drinks,drinks_especiais"
+	},
+	{
+		"title": "Cosmopolitan",
+		"price": "28,90",
+		"category": "drinks,drinks_especiais"
+	},
+	{
+		"title": "Jose Cuervo ouro ou prata",
+		"price": "18,90",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Jack Daniel's Old nº7",
+		"price": "30,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Jack Daniel's Honey",
+		"price": "25,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Johnny Walker red label",
+		"price": "25,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Johnny Walker black label",
+		"price": "35,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Johnny Walker blonde",
+		"price": "30,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Jagermeister",
+		"price": "15,90",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Cachaça Sagatiba",
+		"price": "16,90",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Cachaça Mato Dentro",
+		"price": "15,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Licor 43",
+		"price": "17,90",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Campari",
+		"price": "18,90",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Gin Beefeater",
+		"price": "20,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Absolut",
+		"price": "25,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Smirnoff",
+		"price": "20,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Absinto",
+		"price": "20,00",
+		"category": "drinks,destilados"
+	},
+	{
+		"title": "Combo Jack Daniels",
+		"price": "350,00",
+		"category": "drinks,combos"
+	},
+	{
+		"title": "Combo Black Label",
+		"price": "380,00",
+		"category": "drinks,combos"
+	},
+	{
+		"title": "Combo Red Label",
+		"price": "300,00",
+		"category": "drinks,combos"
+	},
+	{
+		"title": "Combo Beefeater",
+		"price": "280,00",
+		"category": "drinks,combos"
+	},
+	{
+		"title": "Combo Tanqueray",
+		"price": "320,00",
+		"category": "drinks,combos"
+	}
+]

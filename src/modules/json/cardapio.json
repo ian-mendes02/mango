@@ -159,22 +159,14 @@
 		"title": "Joe Sushi",
 		"price": "25,00",
 		"description": "6 peças de joe sushi - gohan enrolado em uma lasca de sashimi. Você escolhe seu recheio favorito:",
-		"options": [
-			"Salmão",
-			"Camarão",
-			"Salmão Philadelphia"
-		],
+		"options": "Salmão,Camarão,Salmão Philadelphia",
 		"category": "sushi_bar"
 	},
 	{
 		"title": "Hossomaki",
 		"price": "23,00",
 		"description": "6 peças de hossomaki - o sushi mais icônico do mundo. Escolha seu recheio preferido:",
-		"options": [
-			"Atum",
-			"Salmão com ovas",
-			"Camarão Philadelphia"
-		],
+		"options": "Atum,Salmão com ovas,Camarão Philadelphia",
 		"category": "sushi_bar"
 	},
 	{
@@ -193,22 +185,14 @@
 		"title": "Hot Roll",
 		"price": "25,00",
 		"description": "5 peças de hot roll - sushi empanado e frito que costuma agradar quem não curte sushi. O recheio fica a sua escolha:",
-		"options": [
-			"Atum",
-			"Salmão",
-			"Camarão"
-		],
+		"options": "Atum,Salmão,Camarão",
 		"category": "sushi_bar"
 	},
 	{
 		"title": "Temaki",
 		"price": "58,00",
 		"description": "Um cone de gohan enrolado em nori crocante. Nossas opções de recheio:",
-		"options": [
-			"Atum",
-			"Salmão (grelhado opcional)",
-			"Salmão Philadelphia"
-		],
+		"options": "Atum,Salmão (grelhado opcional),Salmão Philadelphia",
 		"category": "sushi_bar"
 	},
 	{
