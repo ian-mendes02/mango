@@ -9,11 +9,11 @@ export default function Main() {
 
     const [isMobile, setisMobile] = useState( false )
         , [isLoading, setIsLoading] = useState( true )
-        , [showSideMenu, setShowSideMenu] = useState( false )
+        /* , [showSideMenu, setShowSideMenu] = useState( false )
         , [menuClassName, setMenuClassName] = useState( null )
         , [modalClassName, setModalClassName] = useState( null )
         , menuRef = useRef( null )
-        , menuButtonRef = useRef( null )
+        , menuButtonRef = useRef( null ) */
         , socials = {
             instagram: "https://www.instagram.com/mangocafesjc/",
             facebook: "https://www.facebook.com/profile.php?id=61558132046582",
@@ -28,7 +28,7 @@ export default function Main() {
         return () => window.visualViewport.removeEventListener( 'resize', checkScreenSize );
     }, [] );
 
-    function toggleSideMenu( bool ) {
+    /* function toggleSideMenu( bool ) {
         if ( !bool ) {
             setMenuClassName( 'slide-out' );
             setModalClassName( 'lighten' );
@@ -38,9 +38,9 @@ export default function Main() {
             setModalClassName( 'darken' );
             setShowSideMenu( true );
         }
-    }
+    } */
 
-    const Menu = ( {options} ) => {
+    /* const Menu = ( {options} ) => {
         const Option = ( {name, target, icon} ) => {
             return (
                 <li
@@ -79,7 +79,7 @@ export default function Main() {
                 </div>
             </div>
         );
-    };
+    }; */
 
     function Title( {name, price, className} ) {
         var value = price?.split( "," );
@@ -96,23 +96,23 @@ export default function Main() {
         <main>
             {isLoading && <Loading />}
 
-            {isMobile && <Menu options={[
+            {/* {isMobile && <Menu options={[
                 {name: 'Home', target: '#header', icon: 'house'},
                 {name: 'Drinks', target: '#drinks', icon: 'martini-glass-citrus'},
                 {name: 'Festival', target: '#festival', icon: 'champagne-glasses'},
                 {name: 'Cardápio', target: '#cardapio', icon: 'utensils'}
             ]} />}
 
-            {isMobile && <div className='fixed top-0 right-0 w-full flex p-4 justify-end z-50 bg-slate-900 bg-opacity-90 shadow-md backdrop-blur-sm' ref={menuButtonRef}>
+            {isMobile && <div className='fixed top-0 right-0 w-full flex p-2 justify-end z-50 bg-slate-900 bg-opacity-90 shadow-md backdrop-blur-sm' ref={menuButtonRef}>
                 <div
                     className='p-2'
                     onClick={() => toggleSideMenu( true )}
                 >
                     <i className="fa-solid fa-bars fa-2xl mango-neon-orange" aria-hidden='true'></i>
                 </div>
-            </div>}
+            </div>} */}
 
-            <Section id='header' className='shadow-md pb-0 min-[821px]:!pt-0 max-[820px]:after:bg-bottom-right'>
+            <Section id='header' className='shadow-md pb-0 min-[821px]:!pt-0 max-[820px]:after:bg-bottom-right max-[820px]:pt-8'>
                 <Content className='relative z-10 h-full '>
                     {!isMobile && <div className='w-screen bg-opacity-80 px-8 py-4 flex justify-end'>
                         <Wrapper className='text-white items-center text-center'>
@@ -141,7 +141,7 @@ export default function Main() {
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
                                 onClick={() => scrollToTop( '#sobre' )}>SOBRE O MANGO</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
-                                onClick={() => scrollToTop( '#festival' )}>FESTIVAL MANGO</span>
+                                onClick={() => scrollToTop( '#festival' )}>FESTIVAL OMAKASE</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
                                 onClick={() => scrollToTop( '#drinks' )}>DRINKS</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
@@ -263,7 +263,7 @@ export default function Main() {
                                             <p className='text-sm font-light'>Tequila José Cuervo Prata, licor fino, suco de limão tahiti e gelo, servido em uma taça com crosta de sal.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url('img/drinks/margarita.webp')}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -272,16 +272,16 @@ export default function Main() {
                                             <p className='text-sm font-light'>Pisco capel, suco de limão tahiti, xarope de açúcar demerara, bitter floral e cubos de gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url('img/drinks/pisco_sour.webp')}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
                                         <Container>
-                                            <h1 className="vidaloka !text-2xl mb-2 tracking-wider">Boulevardie</h1>
+                                            <h1 className="vidaloka !text-2xl mb-2 tracking-wider">Boulevardier</h1>
                                             <p className='text-sm font-light'>Campari, Jack Daniels, Vermute Cinzano, Bitter floral e cubos de gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url()}}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url('img/drinks/boulevardier.webp')}}></div>
                                         </Container>
                                     </Grid>
                                 </Grid>
@@ -316,18 +316,30 @@ export default function Main() {
                                     O Festival Omakase é uma sequência em 9 etapas de degustação de diversos itens do nosso cardápio, cudadosamente selecionados de acordo com o clima e a sazonalidade.
                                     Ao fim da sequência você pode escolher os itens que quiser repetir!
                                 </p>
-                                <p className='text-xs italic text-white'>Para a sua segurança e bem-estar, caso tenha alergias ou restrições alimentares, favor avisar nossa equipe. O Mango agradece sua colaboração!</p>
+                                <p className='max-[820px]:hidden text-xs italic text-white'>Para a sua segurança e bem-estar, caso tenha alergias ou restrições alimentares, favor avisar nossa equipe. O Mango agradece sua colaboração!</p>
                             </Container>
                             <Gallery className='grow justify-center items-center max-[820px]:grow-0 max-[820px]:w-full' isMobile={isMobile}>
-                                <img src='/img/placeholder.webp' className='w-96 h-96' />
+                                <img src='/img/festival/festival_1.webp' className='w-96 h-96' />
                                 <div className="w-96 h-96 grid grid-cols-2 grid-rows-2 gap-2 m-2 max-[820px]:mx-0">
-                                    <img src='/img/placeholder.webp' className='w-full h-full' />
-                                    <img src='/img/placeholder.webp' className='w-full h-full' />
-                                    <img src='/img/placeholder.webp' className='w-full h-full' />
-                                    <img src='/img/placeholder.webp' className='w-full h-full' />
+                                    <img src='/img/festival/festival_2.webp' className='w-full h-full' />
+                                    <img src='/img/festival/festival_3.webp' className='w-full h-full' />
+                                    <img src='/img/festival/festival_4.webp' className='w-full h-full' />
+                                    <img src='/img/festival/festival_5.webp' className='w-full h-full' />
                                 </div>
                             </Gallery>
+                            <Container className='min-[821px]:hidden w-full my-4'>
+                                <p className='text-xs italic text-white'>Para a sua segurança e bem-estar, caso tenha alergias ou restrições alimentares, favor avisar nossa equipe. O Mango agradece sua colaboração!</p>
+                                </Container>
                         </Wrapper>
+                        <Container className='mt-8'>
+                            <a
+                                href={socials.instagram}
+                                target='_blank'
+                                className='font-bold mango-neon-orange rounded-full border-2 border-[color:var(--mango-neon-orange)] px-4 py-2 mx-auto hover:border-[color:var(--mango-neon-purple)] hover:text-[var(--mango-neon-purple)] duration-200 ease-out'
+                            >
+                                Veja mais no nosso Instagram <i className='fa-solid fa-external-link' aria-hidden="true"></i>
+                            </a>
+                        </Container>
                     </ContentDefault>
                 </Content>
             </Section>
@@ -402,7 +414,7 @@ export default function Main() {
                             <a
                                 href={isMobile ? '/menu' : '/menu/cardapio-mango.pdf'}
                                 target='_blank'
-                                className='font-bold mango-neon-orange rounded-full border border-[color:var(--mango-neon-orange)] px-4 py-2 mx-auto hover:border-[color:var(--mango-neon-pink)] hover:text-[var(--mango-neon-pink)] duration-200 ease-out'
+                                className='font-bold mango-neon-orange rounded-full border-2 border-[color:var(--mango-neon-orange)] px-4 py-2 mx-auto hover:border-[color:var(--mango-neon-pink)] hover:text-[var(--mango-neon-pink)] duration-200 ease-out'
                             >
                                 Veja nosso cardápio completo <i className='fa-solid fa-external-link' aria-hidden="true"></i>
                             </a>

@@ -3,8 +3,7 @@ import {useEffect} from 'react';
 
 export default function Main() {
     useEffect( () => {
-        location.href = localStorage.getItem( 'logged_user' )
-            ? '/admin/dashboard/'
-            : '/admin/login/';
+        var data = JSON.parse( localStorage.getItem( 'mango_login_data' ) );
+        location.href = data?.auth ? '/admin/dashboard/' : '/admin/login/';
     }, [] );
 }

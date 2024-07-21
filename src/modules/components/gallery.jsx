@@ -1,23 +1,21 @@
-import {useRef, useEffect, useState, cloneElement, useMemo, Children} from 'react';
+import {useRef, useEffect, useState, useMemo, Children} from 'react';
 import {list} from '../utils';
 
 export function Gallery( {children, className, isMobile} ) {
 
-    const [fullscreenContent, setFullscreenContent] = useState( null );
-    const [modalActive, setModalActive] = useState( false );
+    /* const [fullscreenContent, setFullscreenContent] = useState( null )
+    , [modalActive, setModalActive] = useState( false ) */
 
-    function Fullscreen() {
-        const containerRef = useRef( null );
-        const contentRef = useRef( null );
-
-        useEffect( () => {
-            const scrollEvents = ['wheel', 'scroll', 'keydown'];
-            const scrollKeys = ["Space", "ArrowUp", "ArrowDown"];
-            const handleClickOutside = ( e ) =>
-                !contentRef.current?.contains( e.target )
-                    ? setModalActive( false )
-                    : null;
-            const preventScroll = ( e ) => {
+    /* function Fullscreen() {
+        
+            const containerRef = useRef( null )
+            , contentRef = useRef( null )
+            , scrollEvents = ['wheel', 'scroll', 'keydown']
+            , scrollKeys = ["Space", "ArrowUp", "ArrowDown"]
+            , handleClickOutside = e => {
+                containerRef.current == e.target && setModalActive( false );
+            }
+            , preventScroll = e => {
                 if ( scrollEvents.includes( e.type ) ) {
                     if ( e.type === 'keydown' ) {
                         if ( e.code === 'Escape' )
@@ -27,18 +25,15 @@ export function Gallery( {children, className, isMobile} ) {
                     } else e.preventDefault();
                 }
             };
-            if ( modalActive ) {
-                document.addEventListener( 'mousedown', handleClickOutside );
-                scrollEvents.forEach(
-                    ( event ) => document.addEventListener( event, preventScroll, {passive: false} )
-                );
-            }
-            return () => {
-                document.removeEventListener( 'mousedown', handleClickOutside );
-                scrollEvents.forEach(
-                    ( event ) => document.removeEventListener( event, preventScroll, {passive: false} )
-                );
-            };
+        useEffect( () => {
+            modalActive && (
+                document.addEventListener( 'mousedown', handleClickOutside ),
+                scrollEvents.forEach( e => document.addEventListener( e, preventScroll, {passive: false} ) )
+            );
+            return () => (
+                document.removeEventListener( 'mousedown', handleClickOutside ),
+                scrollEvents.forEach( e => document.removeEventListener( e, preventScroll, {passive: false} ) )
+            );
         }, [modalActive] );
 
         return (
@@ -60,20 +55,20 @@ export function Gallery( {children, className, isMobile} ) {
                 </div>
             </div>
         );
-    }
+    } */
 
     function Panel( {children, content, className} ) {
-        function toggleFullscreen( content ) {
+        /* function toggleFullscreen( content ) {
             setFullscreenContent( content );
             setModalActive( true );
-        }
+        } */
 
-        const _content = useMemo(
+        /* const _content = useMemo(
             () => <div
                 className='w-full h-full bg-contain bg-no-repeat bg-center'
                 style={{backgroundImage: `url(${content.props.src || '/img/placeholder.webp'})`}}
             ></div>
-        );
+            , [] ); */
 
         const innerPanels = useMemo( () => {
             var p = Children.toArray( children )?.map(
@@ -86,22 +81,24 @@ export function Gallery( {children, className, isMobile} ) {
             return p.length > 0 ? p : undefined;
         }, [children] );
 
-        return innerPanels ? (
-            <div className={className}>
-                {innerPanels}
-            </div>
-        ) : (
-            <div
-                className={list( 'bg-cover bg-center rounded-lg shadow-md cursor-pointer hover:brightness-90 duration-100 ease-out', content.props.className )}
-                style={{backgroundImage: `url(${content.props.src || '/img/placeholder.webp'})`}}
-                onClick={() => toggleFullscreen( _content )}
-            ></div>
-        );
+        return innerPanels
+            ? (
+                <div className={className}>
+                    {innerPanels}
+                </div>
+            )
+            : (
+                <div
+                    className={list( 'bg-cover bg-center rounded-lg shadow-md', content.props.className )}
+                    style={{backgroundImage: `url(${content.props.src || '/img/placeholder.webp'})`}}
+                /* onClick={() => toggleFullscreen( _content )} */
+                ></div>
+            );
     }
 
     return (
         <div className={list( 'relative flex flex-wrap', className )}>
-            {modalActive && <Fullscreen>{fullscreenContent}</Fullscreen>}
+            {/* {modalActive && <Fullscreen>{fullscreenContent}</Fullscreen>} */}
             {children?.map(
                 ( i, k ) => <Panel
                     key={k}

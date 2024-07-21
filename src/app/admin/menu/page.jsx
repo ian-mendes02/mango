@@ -1,10 +1,12 @@
 "use client";
+
+import {useRouter} from 'next/navigation';
+import {list, scrollToTop} from '@/modules/utils';
 import {useEffect, useMemo, useRef, useState} from 'react';
+import {TEInput, TETextarea, TESelect} from 'tw-elements-react';
 import {Section, Content, ContentDefault, Loading} from 'components/layout-components';
 import {getMenuItems, updateMenuItem, toggleMenuItem, createMenuItem, removeMenuItem} from '@/modules/controllers/menu';
-import {list, scrollToTop} from '@/modules/utils';
-import {useRouter} from 'next/navigation';
-import {TEInput, TETextarea, TESelect} from 'tw-elements-react';
+
 export default function Main() {
 
     const [isLoading, setIsLoading] = useState( true )
@@ -45,7 +47,7 @@ export default function Main() {
     }
 
     function deleteItem( item ) {
-        confirm( `Excluir o item '${item.title}'?\n(Essa ação não pode ser desfeita.)` )
+        confirm( `Excluir o item '${item.title}'?\nEssa ação não pode ser desfeita.` )
             && removeMenuItem( item.id ).then( () => loadMenuContent() );
     };
 
@@ -137,6 +139,7 @@ export default function Main() {
                                 label='Nome do item'
                                 defaultValue={data.title}
                                 onInput={e => setItemName( e.target.value )}
+                                className='text-white'
                             />
                         </div>
                         <div className='mb-4 w-full'>
@@ -144,7 +147,7 @@ export default function Main() {
                                 type='number'
                                 label='Preço'
                                 defaultValue={data.price}
-                                className='mb-4'
+                                className='mb-4 text-white'
                                 onInput={e => setItemPrice( e.target.value )}
                             />
                         </div>
@@ -153,7 +156,7 @@ export default function Main() {
                                 type='text'
                                 label='Descrição'
                                 defaultValue={data.description}
-                                className='resize-none'
+                                className='resize-none text-white'
                                 onInput={e => setItemDescription( e.target.value )}
                             />
                         </div>
@@ -163,6 +166,7 @@ export default function Main() {
                                 label='Opções'
                                 defaultValue={data.options}
                                 onInput={e => setItemOptions( e.target.value )}
+                                className='text-white'
                             />
                             <span className='w-full text-xs font-extralight italic'>Separar com vírgula</span>
                         </div>
@@ -172,6 +176,7 @@ export default function Main() {
                                     data={categories}
                                     placeholder='Selecione uma categoria'
                                     onValueChange={e => setItemCategory( e.value )}
+                                    className='text-white'
                                 />
                             </div>
                         )}
@@ -179,7 +184,7 @@ export default function Main() {
                             <label className='text-sm mr-2'>Incluir no cardápio reduzido?</label>
                             <input
                                 type='checkbox'
-                                className='m-2'
+                                className='m-2 text-white'
                                 defaultChecked={data.showinreduced}
                                 onChange={e => setItemIncluded( e.target.checked )}
                             />
@@ -215,27 +220,31 @@ export default function Main() {
             options: data.options,
             showinreduced: data.showinreduced
         };
-        return !isMobile &&
-            (
-                <tr id={'item-' + item.id} className='align-middle select-none'>
-                    <td>
-                        <span className='inline-flex items-center'>
-                            <span className='edit-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => {
-                                setFormAction( 'edit' );
-                                setSideMenuContent( item );
-                            }}></span>
-                            {isAdmin && <span className='delete-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => deleteItem( item )}></span>}
-                            {item.title}
-                        </span>
-                    </td>
-                    <td>{item.price}</td>
-                    <td>{item.description}</td>
-                    <td>{item.options}</td>
-                    <td className='text-center'>
-                        <input type='checkbox' defaultChecked={item.showinreduced} onChange={e => toggleMenuItem( item.id, e.target.checked )} />
-                    </td>
-                </tr>
-            );
+        return (
+            <tr id={'item-' + item.id} className='align-middle select-none'>
+                <td>
+                    <span className='inline-flex items-center'>
+                        <span className='edit-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => {
+                            setFormAction( 'edit' );
+                            setSideMenuContent( item );
+                        }}></span>
+                        {isAdmin && <span className='delete-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => deleteItem( item )}></span>}
+                        {item.title}
+                    </span>
+                </td>
+                <td className='max-[820px]:hidden'>{item.price}</td>
+                <td className='max-[820px]:hidden'>{item.description}</td>
+                <td className='max-[820px]:hidden'>{item.options}</td>
+                <td className='text-center max-[820px]:hidden'>
+                    <input type='checkbox' defaultChecked={item.showinreduced} onChange={e => toggleMenuItem( item.id, e.target.checked )} />
+                </td>
+            </tr>
+        );
+    }
+
+    function logout() {
+        localStorage.removeItem('mango_login_data');
+        router.push('/admin/login/');
     }
 
     async function loadMenuContent() {
@@ -247,14 +256,13 @@ export default function Main() {
 
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
+        document.title = "Mango Café - Administração";
+        var userData = JSON.parse( localStorage.getItem( 'mango_login_data' ) );
 
-        document.title = "Mango Café Administração";
-
-        if ( !localStorage.getItem( 'mango-auth-login' ) ) router.push( './login/' );
+        if ( !userData?.auth ) router.replace( '/admin/login/' );
         else loadMenuContent().then( () => setIsLoading( false ) );
 
-        var userData = JSON.parse( localStorage.getItem( 'mango_login_data' ) );
-        setIsAdmin( userData.user.role === 'admin' );
+        setIsAdmin( userData?.user.role === 'admin' );
 
         const checkScreenSize = () => setisMobile( window.visualViewport.width <= 820 );
         checkScreenSize();
@@ -266,16 +274,16 @@ export default function Main() {
     useEffect( () => {
         if ( searchInputValue.length > 0 ) {
             var input = searchInputValue.toLowerCase().normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" );
-            let filteredData = menuItemData.filter( o => o.title.toLowerCase().includes( input ) || o.description?.toLowerCase().includes( input ) );
-            setFilteredMenuData( filteredData );
-        }
-        else setFilteredMenuData( [] );
+            setFilteredMenuData( menuItemData.filter(
+                o => o.title.toLowerCase().includes( input ) || o.description?.toLowerCase().includes( input )
+            ) );
+        } else setFilteredMenuData( [] );
     }, [searchInputValue] );
 
     useEffect( () => {
         let handleClickOutside = e => {
             var t = e.target, input = searchInputRef.current;
-            if ( t != input && !input?.contains( t ) ) setShowSearchModal( false );
+            t != input && !input?.contains( t ) && setShowSearchModal( false );
         };
         window.addEventListener( 'mousedown', handleClickOutside );
         return () => window.removeEventListener( 'mousedown', handleClickOutside );
@@ -304,25 +312,27 @@ export default function Main() {
                 <a href="/admin/menu/" className='mango-neon-orange font-semibold text-sm hover:underline'>Cardápio</a>
                 <span className='mango-neon-orange mx-2 font-semibold'>|</span>
                 <a href="/admin/users/" className='mango-neon-orange font-semibold text-sm hover:underline'>Usuários</a>
+                <span className='mango-neon-orange mx-2 font-semibold'>|</span>
+                <a href="#" className='mango-neon-orange font-semibold text-sm hover:underline' onClick={logout}>Sair</a>
             </div>
 
-            <Section id='admin-items-list'>
+            <Section id='admin-items-list' className='max-[820px]:pt-4'>
                 <Content>
                     <ContentDefault>
                         <div className="flex items-center justify-between mb-4">
 
-                            <div className="flex items-center align-middle">
+                            <div className="flex items-center align-middle max-[820px]:hidden">
                                 <h1 className='mango-neon-orange text-3xl font-bold mr-4'>Itens do cardápio</h1>
                                 {isAdmin && <button className='py-1 px-4 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md' onClick={newItem}>Novo item</button>}
                             </div>
 
-                            <div className='relative flex justify-between items-center w-96 bg-neutral-700 rounded-full p-1 px-3' ref={searchInputRef}>
+                            <div className='relative flex justify-between items-center w-96 bg-neutral-700 rounded-full p-1 px-3 max-[820px]:w-full' ref={searchInputRef}>
                                 <i className='fa-solid fa-search opacity-50 mr-2'></i>
                                 <input
                                     type='text'
                                     value={searchInputValue}
                                     onFocus={() => setShowSearchModal( true )}
-                                    onInput={( e ) => setSearchInputValue( e.target.value )}
+                                    onInput={e => setSearchInputValue( e.target.value )}
                                     placeholder='Procurar itens...'
                                     className='bg-transparent outline-none rounded-full grow p-1 px-3'
                                 />
@@ -331,7 +341,7 @@ export default function Main() {
                                         id='search-modal'
                                         className='absolute z-50 w-11/12 h-max max-h-96 overflow-y-scroll top-full left-1/2 -translate-x-1/2 translate-y-1 bg-neutral-800 rounded-lg shadow-lg'
                                     >
-                                        <ul className='list-none p-0 m-0'>
+                                        {filteredMenuData.length > 0 && <ul className='list-none p-0 m-0'>
                                             {filteredMenuData.map( ( i, k ) => <SearchResult
                                                 key={k}
                                                 id={i.id}
@@ -339,15 +349,15 @@ export default function Main() {
                                                 price={i.price}
                                                 description={i.description}
                                             /> )}
-                                        </ul>
+                                        </ul>}
                                     </div>
                                 )}
                             </div>
-
+                            {isMobile && isAdmin && <button className='h-8 min-w-8 mango-neon-orange border-2 border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-full font-bold ml-2' onClick={newItem}>+</button>}
                         </div>
 
-                        <table id='admin-list-table' className='max-[820px]:!w-screen shadow-lg'>
-                            <thead>
+                        <table id='admin-list-table' className='max-[820px]:!w-full shadow-lg'>
+                            <thead className='max-[820px]:hidden'>
                                 <tr className='bg-neutral-900'>
                                     <th>Nome</th>
                                     <th>Preço</th>

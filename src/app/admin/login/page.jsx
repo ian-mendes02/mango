@@ -4,13 +4,15 @@ import {list} from '@/modules/utils';
 import {useState, useEffect} from 'react';
 import {TEInput} from 'tw-elements-react';
 import {Container} from '@/modules/components/layout-components';
+import {useRouter} from 'next/navigation';
 
 export default function Main() {
 
     const [userEmail, setUserEmail] = useState( '' )
         , [userPassword, setUserPassword] = useState( '' )
         , [passwordVisibility, setPasswordVisibility] = useState( false )
-        , [submitButtonContent, setSubmitButtonContent] = useState( 'Entrar' );
+        , [submitButtonContent, setSubmitButtonContent] = useState( 'Entrar' )
+        , router = useRouter();
 
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
@@ -23,7 +25,7 @@ export default function Main() {
         return () => window.removeEventListener( 'keydown', handle_keydown );
     }, [userEmail, userPassword] );
 
-    async function authLogin() {
+    function authLogin() {
         let reset = () => setSubmitButtonContent( 'Entrar' )
             , loading = () => setSubmitButtonContent( <span className='mango-loading'></span> )
             , data;
@@ -51,7 +53,7 @@ export default function Main() {
                             auth: res.data.auth,
                             user: res.data.user
                         } ) );
-                        location.href = '/admin/menu';
+                        router.push( '/admin/menu' );
                     }
                 }
             } );
@@ -77,7 +79,7 @@ export default function Main() {
                         defaultValue=''
                         onChange={( e ) => setUserEmail( e.target.value )}
                         label='Email'
-                        className='mb-2' />
+                        className='mb-2 text-white' />
                     <div className='relative'>
 
                         <TEInput
@@ -86,7 +88,7 @@ export default function Main() {
                             defaultValue=''
                             onChange={( e ) => setUserPassword( e.target.value )}
                             label='Senha'
-                            className='mb-2'
+                            className='mb-2 text-white'
                         />
 
                         <span className='absolute block w-12 h-12 right-0 top-1/2 -translate-y-1/2'>
@@ -99,7 +101,10 @@ export default function Main() {
                             ></i>
                         </span>
                     </div>
-                    <div className='w-full rounded-md shadow-lg text-center p-2 cursor-pointer select-none bg-[var(--mango-brown)] hover:bg-[var(--mango-neon-orange)] duration-150 ease-out flex items-center justify-center'
+                    <div className={userEmail == '' || userPassword == ''
+                        ? 'w-full rounded-md shadow-lg text-center p-2 cursor-pointer select-none bg-[var(--mango-neon-orange)] grayscale-[75%] opacity-75'
+                        : 'w-full rounded-md shadow-lg text-center p-2 cursor-pointer select-none bg-[var(--mango-neon-orange)]'
+                    }
                         onClick={authLogin}>
                         {submitButtonContent}
                     </div>
