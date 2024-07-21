@@ -1,5 +1,7 @@
 "use server";
-import {QueryResult, QueryResultRow, sql} from "@vercel/postgres";
+import {QueryResult, QueryResultRow, createPool} from "@vercel/postgres";
+
+const pool = createPool( {connectionString: process.env.POSTGRES_URL} );
 
 /**
  * Retrieves all menu items from database.
@@ -9,8 +11,8 @@ export async function getMenuItems( reduced: boolean = false ): Promise<QueryRes
     var data: QueryResult, results: QueryResultRow[];
     try {
         reduced
-            ? data = await sql`SELECT * FROM menu_items WHERE showinreduced = TRUE ORDER BY id ASC`
-            : data = await sql`SELECT * FROM menu_items ORDER BY id ASC`;
+            ? data = await pool.sql`SELECT * FROM menu_items WHERE showinreduced = TRUE ORDER BY id ASC`
+            : data = await pool.sql`SELECT * FROM menu_items ORDER BY id ASC`;
         results = data.rows;
     }
     catch {
@@ -26,7 +28,7 @@ export async function getMenuItems( reduced: boolean = false ): Promise<QueryRes
 export async function createMenuItem( values: MenuItemData ): Promise<StatusMessage> {
     var res: StatusMessage = {status: undefined, message: ''};
     try {
-        await sql`
+        await pool.sql`
             INSERT INTO menu_items ( 
                 title, 
                 price, 
@@ -58,7 +60,7 @@ export async function createMenuItem( values: MenuItemData ): Promise<StatusMess
 export async function updateMenuItem( values: MenuItemData ): Promise<StatusMessage> {
     var res: StatusMessage = {status: undefined, message: ''};
     try {
-        await sql`   
+        await pool.sql`   
                 UPDATE menu_items SET 
                     title = ${values.title}, 
                     price = ${parseFloat( values.price )}, 
@@ -82,7 +84,7 @@ export async function updateMenuItem( values: MenuItemData ): Promise<StatusMess
 export async function removeMenuItem( id: number ): Promise<object> {
     var res: {status: any;} = {status: undefined};
     try {
-        await sql`DELETE FROM menu_items WHERE id = ${id}`;
+        await pool.sql`DELETE FROM menu_items WHERE id = ${id}`;
         res.status = true;
     }
     catch ( err: any ) {
@@ -98,7 +100,7 @@ export async function removeMenuItem( id: number ): Promise<object> {
 export async function toggleMenuItem( id: number, status: boolean ): Promise<object> {
     var res: {status: any;} = {status: undefined};
     try {
-        await sql`UPDATE menu_items SET showinreduced = ${status} WHERE id = ${id};`;
+        await pool.sql`UPDATE menu_items SET showinreduced = ${status} WHERE id = ${id};`;
         res.status = true;
     }
     catch ( err: any ) {

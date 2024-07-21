@@ -1,11 +1,13 @@
 "use server";
-import {QueryResultRow, sql} from "@vercel/postgres";
+import {QueryResultRow, createPool} from "@vercel/postgres";
 import User from "./class-user";
+
+const pool = createPool( {connectionString: process.env.POSTGRES_URL} );
 
 export async function getUsers(): Promise<QueryResultRow[]> {
     var res: QueryResultRow[];
     try {
-        var {rows} = await sql`SELECT * FROM users ORDER BY id ASC;`;
+        var {rows} = await pool.sql`SELECT * FROM users ORDER BY id ASC;`;
         res = rows;
     }
     catch {
@@ -17,7 +19,7 @@ export async function getUsers(): Promise<QueryResultRow[]> {
 export async function getUser( email: string ): Promise<QueryResultRow | null> {
     var res: QueryResultRow | null;
     try {
-        var {rows} = await sql`SELECT * FROM users WHERE email = ${email}`;
+        var {rows} = await pool.sql`SELECT * FROM users WHERE email = ${email}`;
         res = rows[0] || null;
     }
     catch {
@@ -30,7 +32,7 @@ export async function createUser( userJson: string ): Promise<StatusMessage> {
     let user: User = JSON.parse( userJson );
     var res: StatusMessage = {status: undefined, message: ''};
     try {
-        await sql`
+        await pool.sql`
             INSERT INTO users ( name, slug, email, role, password )
             VALUES ( 
                 ${user.name},
@@ -51,7 +53,7 @@ export async function updateUser( userJson: string ): Promise<StatusMessage> {
     let user: User = JSON.parse( userJson );
     var res: StatusMessage = {status: undefined, message: ''};
     try {
-        await sql`
+        await pool.sql`
             UPDATE users SET 
                 name = ${user.name}, 
                 slug = ${user.slug},
@@ -70,7 +72,7 @@ export async function updateUser( userJson: string ): Promise<StatusMessage> {
 export async function deleteUser( id: number ): Promise<StatusMessage> {
     var res: StatusMessage = {status: undefined, message: ''};
     try {
-        await sql`DELETE FROM users WHERE id = ${id}`;
+        await pool.sql`DELETE FROM users WHERE id = ${id}`;
         res.status = true;
     }
     catch ( err: any ) {

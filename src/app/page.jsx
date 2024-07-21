@@ -2,17 +2,27 @@
 import {useEffect, useState} from 'react';
 import {Divider, Wrapper, Loading} from 'components/layout-components';
 export default function Main() {
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-        require('@/modules/lib/font-awesome');
+    const [isLoading, setIsLoading] = useState( true );
+    useEffect( () => {
+        require( '@/modules/lib/font-awesome' );
         document.title = "Mango Café - SJC";
-    }, []);
+        var params = window.location.search || ''
+            , parser = new URLSearchParams( params )
+            , ref = parser.has( 'ref' ) && parser.get( 'ref' );
+        switch ( ref ) {
+            case 'menu':
+                location.href = '/menu';
+                break;
+            default:
+                setIsLoading( false );
+                break;
+        }
+    }, [] );
     const socials = {
         instagram: "https://www.instagram.com/mangocafesjc/",
         facebook: "https://www.facebook.com/profile.php?id=61558132046582",
         whatsapp: "https://wa.me/5512997828401"
     };
-    useEffect(() => setIsLoading(false), []);
     return (
         <main className='w-full h-full bg-slate-900'>
             {isLoading && <Loading />}
@@ -34,7 +44,7 @@ export default function Main() {
                             <i className='fa-solid fa-bag-shopping mx-2'></i>
                             <span><strong>Delivery</strong></span>
                         </a>
-                        <a href='/cardapio-mango.pdf' target='_blank' className='flex justify-center items-center rounded-md border-2 border-[color:var(--mango-neon-orange)] p-2 w-full text-center font-semibold my-2'>
+                        <a href='/menu' target='_blank' className='flex justify-center items-center rounded-md border-2 border-[color:var(--mango-neon-orange)] p-2 w-full text-center font-semibold my-2'>
                             <i className='fa-solid fa-utensils mx-2'></i>
                             <span>Nosso <strong>cardápio</strong></span>
                         </a>

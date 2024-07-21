@@ -1,16 +1,8 @@
-/**
- * Login page for admin users.
- * @todo Display error messages on submit.
- * @todo Make the page pretty.
- */
-
 "use client";
-import User from '@/modules/controllers/class-user';
 import {verifyUser} from '@/modules/controllers/users';
 import {list} from '@/modules/utils';
 import {useState, useEffect} from 'react';
 import {TEInput} from 'tw-elements-react';
-import {useRouter} from 'next/navigation';
 import {Container} from '@/modules/components/layout-components';
 
 export default function Main() {
@@ -18,8 +10,7 @@ export default function Main() {
     const [userEmail, setUserEmail] = useState( '' )
         , [userPassword, setUserPassword] = useState( '' )
         , [passwordVisibility, setPasswordVisibility] = useState( false )
-        , [submitButtonContent, setSubmitButtonContent] = useState( 'Entrar' )
-        , router = useRouter();
+        , [submitButtonContent, setSubmitButtonContent] = useState( 'Entrar' );
 
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
@@ -35,7 +26,6 @@ export default function Main() {
     async function authLogin() {
         let reset = () => setSubmitButtonContent( 'Entrar' )
             , loading = () => setSubmitButtonContent( <span className='mango-loading'></span> )
-            , user
             , data;
 
         if ( userEmail === '' || userPassword === '' ) {
@@ -50,18 +40,19 @@ export default function Main() {
                     reset();
                     return;
                 }
-                else if ( 'ok' === res.status ) switch ( res.data.auth ) {
-                    case false:
+                else if ( 'ok' === res.status ) {
+                    if ( !res.data.auth ) {
                         alert( 'Senha incorreta.' );
                         reset();
                         return;
-                    case true:
+                    } else {
                         reset();
                         localStorage.setItem( 'mango_login_data', JSON.stringify( {
                             auth: res.data.auth,
                             user: res.data.user
                         } ) );
-                        router.push( './dashboard/' );
+                        location.href = '/admin/menu';
+                    }
                 }
             } );
         }

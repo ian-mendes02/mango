@@ -119,10 +119,10 @@ export default function Main() {
                             <a href={socials.instagram} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                 <i className="fa-brands fa-instagram" aria-hidden="true"></i>
                             </a>
-                            <a href={socials.facebook} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
+                            <a href={socials.facebook} className='mx-2 hover:text-[var(--mango-ocean-blue)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                 <i className="fa-brands fa-facebook" aria-hidden="true"></i>
                             </a>
-                            <a href={socials.whatsapp} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
+                            <a href={socials.whatsapp} className='mx-2 hover:text-[var(--mango-neon-green)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                 <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
                             </a>
                         </Wrapper>
@@ -318,7 +318,7 @@ export default function Main() {
                                 </p>
                                 <p className='text-xs italic text-white'>Para a sua segurança e bem-estar, caso tenha alergias ou restrições alimentares, favor avisar nossa equipe. O Mango agradece sua colaboração!</p>
                             </Container>
-                            <Gallery className='grow justify-center items-center max-[820px]:grow-0 max-[820px]:w-full'>
+                            <Gallery className='grow justify-center items-center max-[820px]:grow-0 max-[820px]:w-full' isMobile={isMobile}>
                                 <img src='/img/placeholder.webp' className='w-96 h-96' />
                                 <div className="w-96 h-96 grid grid-cols-2 grid-rows-2 gap-2 m-2 max-[820px]:mx-0">
                                     <img src='/img/placeholder.webp' className='w-full h-full' />
@@ -400,7 +400,7 @@ export default function Main() {
 
                         <Container className='mt-8'>
                             <a
-                                href='/menu/cardapio-mango.pdf'
+                                href={isMobile ? '/menu' : '/menu/cardapio-mango.pdf'}
                                 target='_blank'
                                 className='font-bold mango-neon-orange rounded-full border border-[color:var(--mango-neon-orange)] px-4 py-2 mx-auto hover:border-[color:var(--mango-neon-pink)] hover:text-[var(--mango-neon-pink)] duration-200 ease-out'
                             >
@@ -421,10 +421,10 @@ export default function Main() {
                                 <a href={socials.instagram} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                     <i className="fa-brands fa-instagram" aria-hidden="true"></i>
                                 </a>
-                                <a href={socials.facebook} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
+                                <a href={socials.facebook} className='mx-2 hover:text-[var(--mango-ocean-blue)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                     <i className="fa-brands fa-facebook" aria-hidden="true"></i>
                                 </a>
-                                <a href={socials.whatsapp} className='mx-2 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
+                                <a href={socials.whatsapp} className='mx-2 hover:text-[var(--mango-neon-green)] cursor-pointer duration-100 ease-out' target='_blank' rel='noopener noreferrer'>
                                     <i className="fa-brands fa-whatsapp" aria-hidden="true"></i>
                                 </a>
                             </Wrapper>

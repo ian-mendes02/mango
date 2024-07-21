@@ -48,7 +48,7 @@ export default function Main() {
                 setSearchInputValue( '' );
                 setSearchTabOpacity( 0 );
             }}
-            className='menu-list-item bg-inherit w-full pb-4'
+            className='menu-list-item bg-inherit w-full py-4'
         >{name}</li>;
     }
 
@@ -59,7 +59,7 @@ export default function Main() {
         return (
             <li
                 id={'item-' + id}
-                className='menu-list-item w-full pb-4'
+                className='menu-list-item w-full py-4'
                 onClick={() => hasSubpage && showItemSubpage()}
             >
                 <div>
@@ -80,7 +80,7 @@ export default function Main() {
         return (
             <li
                 id={'item-' + id}
-                className='menu-list-item w-full pb-4'
+                className='menu-list-item w-full py-4'
                 onClick={() => hasSubpage && showItemSubpage()}
             >
                 <div>
@@ -91,7 +91,7 @@ export default function Main() {
                     <p className='font-extralight text-sm'>{description}</p>
                 </div>
                 {options?.length > 0 && (
-                    <ul className='pl-2 mt-4'>
+                    <ul className='pl-2'>
                         {options.map( ( i, k ) => <li className='text-sm font-extralight pb-2' key={k}>- {i}</li> )}
                     </ul>
                 )}
@@ -112,7 +112,7 @@ export default function Main() {
                     name={i.title}
                     price={i.price}
                     description={i.description}
-                    options={i.options?.split(',')}
+                    options={i.options?.split( ',' )}
                 /> )
                 : data.map( ( i, k ) => <ListItemDrink
                     key={slug + '_' + k}
@@ -129,7 +129,7 @@ export default function Main() {
                 className={'relative list-none p-4 m-0 bg-contain'}
             >
                 <li className={
-                    'menu-list-item w-full pb-4 my-4 text-xl text-center uppercase relative z-10 ' +
+                    'menu-list-item w-full pb-4 text-xl text-center uppercase relative z-10 ' +
                     ( drinks ? 'font-semibold golden' : 'font-extralight' )
                 }>{title}</li>
                 {content}
@@ -141,34 +141,34 @@ export default function Main() {
         var date = new Date()
             , day = date.getDay()
             , hour = date.getHours().toLocaleString()
-            , isWeekend = ( day == 7 && hour > '19:59:59' ) || day == 0;
-        var data = await getMenuItems( isWeekend );
+            , isWeekend = ( day == 6 && hour >= '20:00:00' ) || day == 0
+            , data = await getMenuItems( isWeekend );
         setMenuItemData( data );
     }
 
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
-        document.title = "Cardápio Mango Café";
+        document.title = 'Cardápio Mango Café';
+        document.body.classList.add( 'bg-neutral-700' );
         loadMenuContent().then( () => setIsLoading( false ) );
     }, [] );
 
     useEffect( () => {
         if ( searchInputValue.length > 0 ) {
             var input = searchInputValue.toLowerCase().normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" );
-            let filteredData = menuItemData.filter( o => o.title.toLowerCase().includes( input ) || o.description?.toLowerCase().includes( input ) );
-            setFilteredMenuData( filteredData );
-        } else {
-            setFilteredMenuData( [] );
-        }
+            setFilteredMenuData( menuItemData.filter( o =>
+                o.title.toLowerCase().includes( input ) || o.description?.toLowerCase().includes( input )
+            ) );
+        } else setFilteredMenuData( [] );
     }, [searchInputValue] );
 
     return (
-        <main onScroll={handleScroll} className='bg-[var(--mango-brown)]'>
+        <main id='menu' onScroll={handleScroll} className='relative bg-[var(--mango-brown)] max-w-[820px] h-full mx-auto shadow-lg overflow-y-overlay'>
 
             {isLoading && <Loading />}
 
             {showSearchModal && (
-                <div id='search-modal' className='fixed z-50 w-screen h-screen overflow-y-scroll top-0 right-0 bg-neutral-950 duration-200 ease-out' style={{opacity: searchModalOpacity}}>
+                <div id='search-modal' className='fixed z-50 w-screen h-screen max-w-[820px] overflow-y-scroll top-0 left-1/2 -translate-x-1/2 bg-neutral-950 duration-200 ease-out' style={{opacity: searchModalOpacity}}>
                     <div className='flex items-center p-4 shadow-lg bg-neutral-900'>
                         <div className='flex justify-between items-center w-full bg-neutral-800 rounded-full p-1 px-3'>
                             <i className='fa-solid fa-search opacity-50 mr-2'></i>
@@ -181,7 +181,7 @@ export default function Main() {
                                 className=' outline-none grow bg-transparent'
                             />
                         </div>
-                        <span className='text-xs ml-2 mango-neon-orange min-w-12' onClick={() => toggleSearchModal( false )}>Cancelar</span>
+                        <span className='text-xs ml-2 mango-neon-orange min-w-12 cursor-pointer' onClick={() => toggleSearchModal( false )}>Cancelar</span>
                     </div>
                     <div className='p-4'>
                         <ul className='list-none p-0 m-0'>
@@ -197,7 +197,7 @@ export default function Main() {
                 </div>
             )}
 
-            <div id='search-tab' className='fixed z-40 flex items-center p-4 w-screen top-0 right-0 bg-neutral-900 bg-opacity-80 backdrop-blur-sm shadow-lg' style={{opacity: searchTabOpacity, display: searchTabOpacity == 0 && 'none'}}>
+            <div id='search-tab' className='fixed z-40 flex items-center p-4 w-screen max-w-[820px] top-0 left-1/2 -translate-x-1/2  bg-neutral-900 bg-opacity-80 backdrop-blur-sm shadow-lg' style={{opacity: searchTabOpacity, display: searchTabOpacity == 0 && 'none'}}>
                 <div className='flex justify-between items-center w-full bg-neutral-800 rounded-full p-1 px-3'>
                     <i className='fa-solid fa-search opacity-50 mr-2'></i>
                     <input type='text' readOnly value={searchInputValue} onFocus={() => toggleSearchModal( true )} placeholder='Procurar no cardápio...' className='bg-neutral-800 outline-none rounded-full grow p-1 px-3' />
@@ -206,7 +206,7 @@ export default function Main() {
 
             <div
                 id='foreground'
-                className='absolute top-0 left-0 w-screen h-auto bg-slate-900 pt-28 z-30 shadow-lg duration-200 ease-in-out'
+                className='absolute top-0 left-0 w-screen max-w-[820px] h-auto bg-slate-900 pt-28 z-30 shadow-lg duration-200 ease-in-out pr-4 max-[820px]:pr-0'
                 style={{transform: `translateX(${isMainFrameActive ? '0' : '-100%'})`}}
                 ref={foregroundRef}
             >
@@ -217,7 +217,7 @@ export default function Main() {
                     </button>
                 </div>
 
-                <div id='menu-header' className='absolute top-0 left-0 w-screen h-full max-w-[820px] mx-auto z-10 bg-contain'>
+                <div id='menu-header' className='absolute top-0 left-0 w-full h-full mx-auto z-10 bg-contain'>
                     <div className='p-8 flex relative z-20'>
                         <div className='block h-full aspect-square w-12 bg-no-repeat bg-contain' style={{backgroundImage: 'url(/img/svg/mascot.svg)'}}></div>
                         <div>
@@ -227,7 +227,7 @@ export default function Main() {
                     </div>
                 </div>
 
-                <div id="menu-content" className='relative z-20 w-full h-full pt-12 bg-[var(--mango-black)] rounded-2xl shadow-lg'>
+                <div id="menu-content" className='relative z-20 w-full max-w-[820px] h-full pt-12 bg-[var(--mango-black)] rounded-2xl shadow-lg'>
                     <CategorySection title='Cozinha' />
                     <CategorySection title='Sushi Bar' />
                     <CategorySection title='Drinks' />

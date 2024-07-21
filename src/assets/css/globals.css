@@ -363,3 +363,7 @@ input[type=checkbox]:checked::before {
 input[type=checkbox]:focus {
   outline: none
 }
+
+.overflow-y-overlay {
+  overflow-y: overlay;
+}
