@@ -1,8 +1,13 @@
 "use client";
 import {useEffect, useState} from 'react';
-import {Divider, Wrapper, Loading} from 'components/layout-components';
+import {Divider, Wrapper, Loading} from '@/modules/components/layout';
 export default function Main() {
-    const [isLoading, setIsLoading] = useState( true );
+    const [isLoading, setIsLoading] = useState( true )
+        , socials = {
+            instagram: "https://www.instagram.com/mangocafesjc/",
+            facebook: "https://www.facebook.com/profile.php?id=61558132046582",
+            whatsapp: "https://wa.me/5512997828401"
+        };
     useEffect( () => {
         require( '@/modules/lib/font-awesome' );
         document.title = "Mango Café - SJC";
@@ -18,11 +23,6 @@ export default function Main() {
                 break;
         }
     }, [] );
-    const socials = {
-        instagram: "https://www.instagram.com/mangocafesjc/",
-        facebook: "https://www.facebook.com/profile.php?id=61558132046582",
-        whatsapp: "https://wa.me/5512997828401"
-    };
     return (
         <main className='w-full h-full bg-slate-900'>
             {isLoading && <Loading />}

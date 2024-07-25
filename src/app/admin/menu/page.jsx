@@ -1,11 +1,14 @@
 "use client";
 
 import {useRouter} from 'next/navigation';
-import {list, scrollToTop} from '@/modules/utils';
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {TEInput, TETextarea, TESelect} from 'tw-elements-react';
-import {Section, Content, ContentDefault, Loading} from 'components/layout-components';
+import {Section, Content, ContentDefault, Loading} from '@/modules/components/layout';
 import {getMenuItems, updateMenuItem, toggleMenuItem, createMenuItem, removeMenuItem} from '@/modules/controllers/menu';
+import {MenuItem} from '@/modules/controllers/class-menu-item';
+import {page, parseLoginData, viewportListener, scrollTo} from '@/modules/utils/pages';
+import {sanitize} from '@/modules/utils/strings';
+
 
 export default function Main() {
 
@@ -18,181 +21,163 @@ export default function Main() {
         , [filteredMenuData, setFilteredMenuData] = useState( [] )
         , [searchInputValue, setSearchInputValue] = useState( '' )
         , [showSideMenu, setShowSideMenu] = useState( false )
-        , [menuClassName, setMenuClassName] = useState( null )
-        , [modalClassName, setModalClassName] = useState( null )
+        , [menuTransition, setMenuTransition] = useState( false )
         , [formAction, setFormAction] = useState( 'edit' )
         , [tableContent, setTableContent] = useState( null )
-        , menuRef = useRef( null )
         , searchInputRef = useRef( null )
         , router = useRouter();
 
-    function toggleSideMenu( bool ) {
-        if ( !bool ) {
-            setMenuClassName( 'slide-out-right' );
-            setModalClassName( 'lighten' );
+    function toggleSideMenu( content ) {
+        if ( content ) {
+            setSideMenuContent( content );
+            setMenuTransition( true );
+            setShowSideMenu( true );
+        }
+        else {
+            setMenuTransition( false );
             setTimeout( () => {
                 setShowSideMenu( false );
                 setSideMenuContent( null );
             }, 300 );
-        } else {
-            setMenuClassName( 'slide-in-right' );
-            setModalClassName( 'darken' );
-            setShowSideMenu( true );
         }
     }
 
     function newItem() {
         setFormAction( 'create' );
-        setSideMenuContent( {} );
+        toggleSideMenu( {} );
     }
 
+    /**
+     * @param {MenuItem} item 
+     */
     function deleteItem( item ) {
         confirm( `Excluir o item '${item.title}'?\nEssa ação não pode ser desfeita.` )
             && removeMenuItem( item.id ).then( () => loadMenuContent() );
     };
 
+    /**
+     * @param {MenuItem} item 
+     */
+    function editItem( item ) {
+        setFormAction( 'edit' );
+        toggleSideMenu( item );
+    }
+
     function Menu() {
 
-        const data = sideMenuContent
-            , [itemName, setItemName] = useState( data?.title ?? '' )
-            , [itemPrice, setItemPrice] = useState( data?.price ?? '' )
-            , [itemDescription, setItemDescription] = useState( data?.description ?? '' )
-            , [itemOptions, setItemOptions] = useState( data?.options ?? '' )
-            , [itemIncluded, setItemIncluded] = useState( data?.showinreduced ?? '' )
-            , [itemCategory, setItemCategory] = useState( '' )
-            , [submitButtonContent, setSubmitButtonContent] = useState( 'Salvar' );
+        const data = new MenuItem( sideMenuContent )
+            , [itemName, setItemName] = useState( data.title )
+            , [itemPrice, setItemPrice] = useState( data.price )
+            , [itemDescription, setItemDescription] = useState( data.description )
+            , [itemOptions, setItemOptions] = useState( data.options )
+            , [itemIncluded, setItemIncluded] = useState( data.showinreduced )
+            , [itemCategories, setItemCategories] = useState( data.categories )
+            , [submitButtonContent, setSubmitButtonContent] = useState( 'Salvar' )
+            , edit = formAction == 'edit'
+            , create = formAction == 'create'
+            , categories = [
+                {text: "Selecione uma categoria", value: ""},
+                {text: "Sushi Bar", value: "sushi_bar"},
+                {text: "Cozinha", value: "cozinha"},
+                {text: "Bebidas", value: "drinks"},
+            ]
 
-        const new_data = useMemo( () => {
-            return {
-                id: data?.id,
-                title: itemName,
-                price: itemPrice,
-                description: itemDescription,
-                options: itemOptions,
-                showinreduced: itemIncluded,
-                categories: itemCategory
-            };
-        }, [itemName, itemPrice, itemDescription, itemOptions, itemIncluded, itemCategory] );
+            , reset = () => setSubmitButtonContent( 'Salvar' )
+            , loading = () => setSubmitButtonContent( <span className='mango-loading'></span> )
+            , dismiss = () => {
+                reset();
+                setMenuTransition( false );
+                loadMenuContent();
+            }
 
-        const dataHasChanged = useMemo( () => JSON.stringify( new_data ) !== JSON.stringify( data ), [new_data] );
+            , dataHasChanged = useMemo( () => (
+                data.title != itemName
+                || data.price != itemPrice
+                || data.description != itemDescription
+                || data.options != itemOptions
+                || data.showinreduced != itemIncluded
+                || data.categories != itemCategories
+            ), [itemName, itemPrice, itemDescription, itemOptions, itemIncluded, itemCategories, submitButtonContent] );
 
-        const categories = [
-            {text: "Selecione uma categoria", value: ""},
-            {text: "Sushi Bar", value: "sushi_bar"},
-            {text: "Cozinha", value: "cozinha"},
-            {text: "Bebidas", value: "drinks"},
-        ];
-
-        async function saveItem() {
+        function saveItem() {
             if ( dataHasChanged ) {
 
-                setSubmitButtonContent( <span className='mango-loading'></span> );
-
-                if ( formAction === 'edit' ) {
-                    updateMenuItem( new_data ).then( res => {
-                        if ( res?.status === true ) {
-                            setSubmitButtonContent( 'Salvar' );
-                            loadMenuContent();
-                        } else {
-                            console.log( res );
-                            return;
-                        }
-                    } );
+                if ( itemCategories == '' ) {
+                    alert( "A categoria não pode ficar em branco." );
+                    reset();
+                    return;
                 }
 
-                if ( formAction === 'create' ) {
-                    if ( itemCategory !== '' )
-                        createMenuItem( new_data ).then( res => {
-                            if ( res?.status === true ) {
-                                setSubmitButtonContent( 'Salvar' );
-                                loadMenuContent();
-                            } else {
-                                console.log( res );
-                                return;
-                            }
-                        } );
-                    else {
-                        alert( "A categoria não pode ficar em branco." );
-                        setSubmitButtonContent( 'Salvar' );
-                        return;
-                    }
+                loading();
+
+                var item = new MenuItem( {
+                    title: itemName,
+                    price: itemPrice,
+                    description: itemDescription,
+                    options: itemOptions,
+                    showinreduced: itemIncluded,
+                    categories: itemCategories,
+                } );
+
+                if ( edit ) {
+                    item.id = data.id;
+                    updateMenuItem( item.toJson() )
+                        .then( res =>
+                            res?.status === true ? dismiss() : console.log( res )
+                        );
+                }
+
+                if ( create ) {
+                    createMenuItem( item.toJson() )
+                        .then( res =>
+                            res?.status === true ? dismiss() : console.log( res )
+                        );
                 }
             }
         }
 
-        return showSideMenu && (
-            <div className={list( 'darken fixed top-0 left-0 w-screen h-screen z-[999] backdrop-blur-[2px]', modalClassName )} data-side-menu>
-                <div ref={menuRef} className={list( 'absolute right-0 top-0 bg-neutral-700 h-full pt-8 shadow-md', menuClassName, isMobile ? 'w-screen' : 'w-[36rem]' )}>
-                    <div className='w-full flex justify-start items-center px-4 mb-4 cursor-pointer' onClick={() => toggleSideMenu( false )}>
+        return (
+            <div className={'darken fixed top-0 left-0 w-screen h-screen z-[999] backdrop-blur-[2px] ' + ( menuTransition ? 'darken' : 'lighten' )} data-side-menu>
+                <div className={'absolute right-0 top-0 bg-neutral-700 h-full pt-8 shadow-md max-[820px]:!w-screen w-[36rem] ' + ( menuTransition ? 'slide-in-right' : 'slide-out-right' )}>
+                    <div className='w-full flex justify-start items-center px-4 mb-4 cursor-pointer' onClick={() => toggleSideMenu( null )}>
                         <i className="fa-solid fa-xmark fa-2xl" aria-hidden='true'></i>
                     </div>
-                    <div id={'edit-item-' + data.id} className='p-4'>
+                    <div id={'edit-item-' + ( data.id || 'new-item' )} className='p-4'>
                         <div className='mb-4 w-full p-2'>
-                            <h1 className='text-xl font-bold'>{formAction == 'edit'
-                                ? `Editar item '${data.title}'`
-                                : 'Criar novo item'
-                            }</h1>
+                            <h1 className='text-xl font-bold'>{formAction == 'edit' ? `Editar item '${data.title}'` : 'Criar novo item'}</h1>
                         </div>
                         <div className='mb-4 w-full'>
-                            <TEInput
-                                type='text'
-                                label='Nome do item'
-                                defaultValue={data.title}
-                                onInput={e => setItemName( e.target.value )}
-                                className='text-white'
-                            />
+                            <TEInput type='text' label='Nome do item' defaultValue={data.title} onInput={e => setItemName( e.target.value )} className='text-white' />
                         </div>
                         <div className='mb-4 w-full'>
-                            <TEInput
-                                type='number'
-                                label='Preço'
-                                defaultValue={data.price}
-                                className='mb-4 text-white'
-                                onInput={e => setItemPrice( e.target.value )}
-                            />
+                            <TEInput type='number' label='Preço' defaultValue={data.price} className='mb-4 text-white' onInput={e => setItemPrice( e.target.value )} />
                         </div>
                         <div className='mb-4 w-full'>
-                            <TETextarea
-                                type='text'
-                                label='Descrição'
-                                defaultValue={data.description}
-                                className='resize-none text-white'
-                                onInput={e => setItemDescription( e.target.value )}
-                            />
+                            <TETextarea type='text' label='Descrição' defaultValue={data.description} className='resize-none text-white' onInput={e => setItemDescription( e.target.value )} />
                         </div>
                         <div className='mb-4 w-full'>
-                            <TEInput
-                                type='text'
-                                label='Opções'
-                                defaultValue={data.options}
-                                onInput={e => setItemOptions( e.target.value )}
-                                className='text-white'
-                            />
+                            <TEInput type='text' label='Opções' defaultValue={data.options} onInput={e => setItemOptions( e.target.value )} className='text-white' />
                             <span className='w-full text-xs font-extralight italic'>Separar com vírgula</span>
                         </div>
                         {formAction == 'create' && (
                             <div className='mb-4 w-full'>
-                                <TESelect
-                                    data={categories}
-                                    placeholder='Selecione uma categoria'
-                                    onValueChange={e => setItemCategory( e.value )}
-                                    className='text-white'
-                                />
+                                <TESelect data={categories} placeholder='Selecione uma categoria' onValueChange={e => setItemCategories( e.value )} className='text-white' />
                             </div>
                         )}
                         <span className='inline-flex items-center'>
                             <label className='text-sm mr-2'>Incluir no cardápio reduzido?</label>
-                            <input
-                                type='checkbox'
-                                className='m-2 text-white'
-                                defaultChecked={data.showinreduced}
-                                onChange={e => setItemIncluded( e.target.checked )}
-                            />
+                            <input type='checkbox' className='m-2 text-white' defaultChecked={data.showinreduced} onChange={e => setItemIncluded( e.target.checked )} />
                         </span>
                     </div>
                     <div className='w-full flex items-center px-4'>
-                        <button onClick={saveItem} className={'py-1 px-4 mr-2 bg-[var(--mango-neon-orange)] border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md w-max min-w-24 flex justify-center items-center ' + ( !dataHasChanged && ' grayscale pointer-events-none opacity-50' )}>{submitButtonContent}</button>
-                        <button onClick={() => toggleSideMenu( false )} className='py-1 px-4 mr-2 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md'>Cancelar</button>
+                        <button onClick={saveItem}
+                            className={'py-1 px-4 mr-2 bg-[var(--mango-neon-orange)] border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md w-max min-w-24 flex justify-center items-center ' + ( !dataHasChanged && ' grayscale pointer-events-none opacity-50' )}>
+                            {submitButtonContent}
+                        </button>
+
+                        <button onClick={() => toggleSideMenu( null )} className='py-1 px-4 mr-2 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md'>
+                            Cancelar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -203,7 +188,7 @@ export default function Main() {
         return <li
             id={id}
             onClick={() => {
-                scrollToTop( '#item-' + id );
+                scrollTo( '#item-' + id );
                 setShowSearchModal( false );
                 setSearchInputValue( '' );
             }}
@@ -211,23 +196,21 @@ export default function Main() {
         >{name}</li>;
     }
 
+    /**
+     * @param {object} props 
+     * @param {MenuItem} props.data 
+     */
     function TableRow( {data} ) {
-        var item = {
-            id: data.id,
-            title: data.title,
-            price: data.price,
-            description: data.description,
-            options: data.options,
-            showinreduced: data.showinreduced
-        };
+        var item = new MenuItem( data );
         return (
-            <tr id={'item-' + item.id} className='align-middle select-none'>
+            <tr
+                id={'item-' + item.id}
+                className='align-middle select-none'
+                onClick={() => isMobile && editItem( item )}
+            >
                 <td>
                     <span className='inline-flex items-center'>
-                        <span className='edit-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => {
-                            setFormAction( 'edit' );
-                            setSideMenuContent( item );
-                        }}></span>
+                        <span className='edit-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => editItem( item )}></span>
                         {isAdmin && <span className='delete-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => deleteItem( item )}></span>}
                         {item.title}
                     </span>
@@ -243,42 +226,34 @@ export default function Main() {
     }
 
     function logout() {
-        localStorage.removeItem('mango_login_data');
-        router.push('/admin/login/');
+        localStorage.removeItem( 'mango_login_data' );
+        router.push( '/admin/login/' );
     }
 
     async function loadMenuContent() {
-        setTableContent( <tr><td colSpan={5}><span className='mango-loading'></span></td></tr> );
+        !isLoading && setIsLoading( true );
         var data = await getMenuItems();
-        setMenuItemData( data );
+        setShowSideMenu( false );
         setSideMenuContent( null );
+        setMenuItemData( data );
+        setIsLoading( false );
     }
 
     useEffect( () => {
-        require( '@/modules/lib/font-awesome' );
-        document.title = "Mango Café - Administração";
-        var userData = JSON.parse( localStorage.getItem( 'mango_login_data' ) );
-
-        if ( !userData?.auth ) router.replace( '/admin/login/' );
-        else loadMenuContent().then( () => setIsLoading( false ) );
-
-        setIsAdmin( userData?.user.role === 'admin' );
-
-        const checkScreenSize = () => setisMobile( window.visualViewport.width <= 820 );
-        checkScreenSize();
-        window.visualViewport.addEventListener( 'resize', checkScreenSize );
-
-        return () => window.visualViewport.removeEventListener( 'resize', checkScreenSize );
+        const listener = viewportListener( setisMobile );
+        page( "Mango Café - Administração" );
+        parseLoginData( router, setIsAdmin );
+        listener.add();
+        loadMenuContent().then( () => setIsLoading( false ) );
+        return listener.remove;
     }, [] );
 
-    useEffect( () => {
-        if ( searchInputValue.length > 0 ) {
-            var input = searchInputValue.toLowerCase().normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" );
-            setFilteredMenuData( menuItemData.filter(
-                o => o.title.toLowerCase().includes( input ) || o.description?.toLowerCase().includes( input )
-            ) );
-        } else setFilteredMenuData( [] );
-    }, [searchInputValue] );
+    useEffect( () => setFilteredMenuData(
+        searchInputValue.length > 0 ? menuItemData.filter( o =>
+            sanitize( o.title + o.description || '' )
+                .includes( sanitize( searchInputValue ) )
+        ) : []
+    ), [searchInputValue] );
 
     useEffect( () => {
         let handleClickOutside = e => {
@@ -289,23 +264,18 @@ export default function Main() {
         return () => window.removeEventListener( 'mousedown', handleClickOutside );
     }, [showSearchModal] );
 
-    useEffect( () => {
-        toggleSideMenu( sideMenuContent !== null );
-    }, [sideMenuContent] );
-
-    useEffect( () => {
-        menuItemData &&
-            setTableContent( menuItemData.map(
-                ( i, k ) => <TableRow key={k} data={i} />
-            ) );
-    }, [menuItemData] );
+    useEffect( () =>
+        menuItemData && setTableContent(
+            menuItemData.map( ( i, k ) => <TableRow key={k} data={i} /> )
+        )
+        , [menuItemData] );
 
     return (
         <main className='bg-neutral-800'>
 
             {isLoading && <Loading />}
 
-            <Menu />
+            {showSideMenu && <Menu />}
 
             <div id='dashboard-header' className='relative z-40 flex items-center p-4 w-screen top-0 left-0 bg-neutral-900 shadow-lg'>
                 <div className='block h-full aspect-square w-8 bg-no-repeat bg-contain mx-4' style={{backgroundImage: 'url(/img/svg/mascot.svg)'}}></div>

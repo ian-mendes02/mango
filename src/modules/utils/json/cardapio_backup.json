@@ -1,0 +1,770 @@
+[
+	{
+		"title": "Karaage",
+		"price": "29.00",
+		"description": "200g de iscas de frango empanado. Finalizado com molho tarê e gergelim.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Lula do Laos",
+		"price": "36.00",
+		"description": "200g de lula refogada na manteiga e molho de ostra.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Peixe da Barraquinha",
+		"price": "31.00",
+		"description": "200g de iscas de pescada branca. Acompanha molho tártaro pra dar aquele sabor de fim de semana na praia.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Pastel La Carioca - 3un.",
+		"price": "25.00",
+		"description": "Pastéis à moda carioca. Escolha entre siri, costela com queijo, caponata de berinjela ou queijo, ou um de cada! Acompanha molho de tomate feito na brasa.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Pastel La Carioca - 4un.",
+		"price": "30.00",
+		"description": "Pastéis à moda carioca. Escolha entre siri, costela com queijo, caponata de berinjela ou queijo, ou um de cada! Acompanha molho de tomate feito na brasa.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Samosas",
+		"price": "30.00",
+		"description": "3 unidades de samosas - pastéis típicos da Índia com tempero potente, textura inusitada e massa super crocante. Nossas opções de recheio são salmão, frango e ragu de carne.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Okashi",
+		"price": "22.00",
+		"description": "3 unidades de bolinhos de costela minga, servidos com a nossa deliciosa geleia de maçã com pimenta.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Satay",
+		"price": "19.00",
+		"description": "Espetos temperados e grelhados no autêntico estilo de comida de rua tailandesa. Escolha entre carne bovina, suína, frango ou vegetariano, se preferir. Nossa equipe pode te dar uma sugestão de molho.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Yakissoba",
+		"price": "25.00",
+		"description": "Macarrão tipo soba, grelhado ao molho yaki com a técnica passada pelo mestre Kosaka. Temos opção de carne, frango ou vegetais.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Pad Thai",
+		"price": "25.00",
+		"description": "O prato nacional da Tailândia, com ingredientes importados de Bangkok direto pra sua mesa. Se preferir, peça sem pimenta.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Sukón",
+		"price": "18.00",
+		"description": "O Mango traz pra você esse prato que faz sucesso em botecos pelo mundo afora. 3 bolinhos de carne, queijo ou salmão, servidos na tábua de degustação com todo o carinho e capricho do chef.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Curry de Frango",
+		"price": "30.00",
+		"description": "Receita indiana adaptada ao nosso paladar brasileiro. Uma mistura de temperos exóticos pra dar aquela esquentada, na medida certa. Acompanha bolinho de arroz mochi pra ajudar a segurar o calor.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Gyudon",
+		"price": "25.00",
+		"description": "Um reconfortante prato japonês interpretado pelo nosso chef. Arroz no estilo risoto com costela desfiada e especiarias, tudo bem quentinho.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "COMBINADOS",
+		"price": "",
+		"description": "Peças variadas de harumaki, joe, nigiri, hossomaki, sashimi e hot roll. Tudo isso naquele jeitinho brasileiro que deixa tudo mais gostoso.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "JUU",
+		"price": "55.00",
+		"description": "15 peças",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "NI-JUU",
+		"price": "126.00",
+		"description": "25 peças",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "SAN-JUU",
+		"price": "180.00",
+		"description": "50 peças",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Ceviche",
+		"price": "32.00",
+		"description": "Pescada branca, lula, camarão e polvo, cozidos na acidez do suco de limão. Esse tesouro das ilhas do Pacífico é servido com um molho à base de limão chamado leche de tigre. Acompanha chips de batata doce.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Salmão tartare",
+		"price": "39.00",
+		"description": "O prato mais pedido aqui no Mango - e com razão. Nosso salmão tartare é feito com cubos de salmão fresco sobre uma cama de avocado temperado, cobertos de tobiko, um caviar japonês.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Carpaccio",
+		"price": "49.00",
+		"description": "Lâminas de salmão ao molho ponzu - um molho japonês levemente picante à base de shoyu, sakê, mirin e suco de limão. Servido com ovas e gergelim.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Joe Sushi",
+		"price": "25.00",
+		"description": "6 peças de joe sushi - gohan enrolado em uma lasca de sashimi. Você escolhe seu recheio favorito:",
+		"categories": "sushi_bar",
+		"options": "Salmão,Camarão,Salmão Philadelphia",
+		"showinreduced": false
+	},
+	{
+		"title": "Hossomaki",
+		"price": "23.00",
+		"description": "6 peças de hossomaki - o sushi mais icônico do mundo. Escolha seu recheio preferido:",
+		"categories": "sushi_bar",
+		"options": "Atum,Salmão com ovas,Camarão Philadelphia",
+		"showinreduced": false
+	},
+	{
+		"title": "Uramaki",
+		"price": "23.00",
+		"description": "5 peças de uramaki - um estilo ocidental de sushi \"às avessas\", enrolado com gohan e recheado com ingredientes à escolha do chef.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Nigiri",
+		"price": "28.00",
+		"description": "6 peças de nigiri - porções de gohan cuidadosamente moldadas à mão, cobertas com lascas de sashimi de atum, tilápia e salmão.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Hot Roll",
+		"price": "25.00",
+		"description": "5 peças de hot roll - sushi empanado e frito que costuma agradar quem não curte sushi. O recheio fica a sua escolha:",
+		"categories": "sushi_bar",
+		"options": "Atum,Salmão,Camarão",
+		"showinreduced": true
+	},
+	{
+		"title": "Temaki",
+		"price": "58.00",
+		"description": "Um cone de gohan enrolado em nori crocante. Nossas opções de recheio:",
+		"categories": "sushi_bar",
+		"options": "Atum,Salmão (grelhado opcional),Salmão Philadelphia",
+		"showinreduced": true
+	},
+	{
+		"title": "Tuna Tataki",
+		"price": "34.90",
+		"description": "5 lâminas de atum marinado, grelhado e empanado com furikake. Servido com molho à base de ostras, pimenta, gergelim e limão.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Pedra de Sal",
+		"price": "34.90",
+		"description": "Carpaccio de salmão ou tilápia, regado com azeite trufado, raspas de limão siciliano e servido em uma pedra de sal maciço.",
+		"categories": "sushi_bar",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Jarra de suco (Limão, abacaxi, abacaxi com hortelã, e morango)",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,sucos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Limonada suíça",
+		"price": "24.90",
+		"description": "",
+		"categories": "drinks,sucos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Caipirinha de geleia de abacaxi com pimenta (Sagatiba, Absolut ou Soju)",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,caipirinhas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Caipirinha 3 limões (Sagatiba, Absolut ou Soju)",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,caipirinhas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Caipirinha tradicional (Sagatiba, Absolut ou Soju)",
+		"price": "30.90",
+		"description": "",
+		"categories": "drinks,caipirinhas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Caipirinha tradicional (Cachaça 51, vodka Smirnoff ou Sake)",
+		"price": "24.90",
+		"description": "",
+		"categories": "drinks,caipirinhas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Gin Tônica - sabores (Melancia, Tropical ou Morango com Pêssego)",
+		"price": "26.90",
+		"description": "",
+		"categories": "drinks,gin_tonica",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Gin Tônica tradicional",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,gin_tonica",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Gin Tônica da Casa",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,gin_tonica",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Aperol Spritz",
+		"price": "29.90",
+		"description": "",
+		"categories": "drinks,aperitivos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Cuba Libre",
+		"price": "26.90",
+		"description": "",
+		"categories": "drinks,aperitivos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Água (500 ml - com ou sem gás)",
+		"price": "5.90",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Coca-cola (normal ou zero)",
+		"price": "7.00",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Fanta Guaraná (normal ou zero)",
+		"price": "7.00",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Fanta Laranja",
+		"price": "7.00",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Schweppes Citrus",
+		"price": "7.00",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Schweppes Ginger Ale",
+		"price": "8.90",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Schweppes Tônica (normal ou zero)",
+		"price": "7.90",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Pork & Chips",
+		"price": "58.00",
+		"description": "Barriga de porco marinada na cachaça. Acompanha fritas e molho barbecue chinês.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Fritas",
+		"price": "29.00",
+		"description": "300g de batatas fritas na hora. Acompanha molho à base de maionese e shoyu.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Camarão de Phi-Phi",
+		"price": "73.00",
+		"description": "300g de camarão empanado ao tempero de lemon pepper. Acompanha molho de abóbora cabotiá com requeijão.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": false
+	},
+	{
+		"title": "Long Tail",
+		"price": "79.00",
+		"description": "Porção de lula, camarão empanado e iscas de peixe. Finalização especial à moda da casa.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Fish & Chips",
+		"price": "58.00",
+		"description": "Conhecida da Europa à Oceania por ser a combinação perfeita de iscas de peixe e fritas. Acompanha molho especial do chef.",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Redbull",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Sprite Lemon Fresh (500 ml)",
+		"price": "12.90",
+		"description": "",
+		"categories": "drinks,bebidas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Amstel",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Amstel Ultra",
+		"price": "19.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Corona",
+		"price": "12.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Heineken",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Amstel (600ml)",
+		"price": "19.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Heineken (600ml)",
+		"price": "12.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Three Lions Session Ale (330ml)",
+		"price": "12.90",
+		"description": "",
+		"categories": "drinks,cervejas_e_chopp",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Campari - tônica ou citrus",
+		"price": "26.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Frozen Daiquiri de morango",
+		"price": "26.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Mojito",
+		"price": "26.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Margarita tradicional",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Margarita de maracujá",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Negroni",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Boulevardie",
+		"price": "35.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Ganbatte",
+		"price": "34.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Pisco Sour",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Bourbon Sour",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Passion",
+		"price": "32.90",
+		"description": "",
+		"categories": "drinks,cocktails",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Mousse (Maracujá ou morango)",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,sobremesas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Soda Italiana",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,sobremesas",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Mango Fresh",
+		"price": "26.90",
+		"description": "",
+		"categories": "drinks,drinks_especiais",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Cosmopolitan",
+		"price": "28.90",
+		"description": "",
+		"categories": "drinks,drinks_especiais",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Jose Cuervo ouro ou prata",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Jack Daniel's Old nº7",
+		"price": "30.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Jack Daniel's Honey",
+		"price": "25.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Johnny Walker red label",
+		"price": "25.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Johnny Walker black label",
+		"price": "35.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Johnny Walker blonde",
+		"price": "30.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Jagermeister",
+		"price": "15.90",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Cachaça Sagatiba",
+		"price": "16.90",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Cachaça Mato Dentro",
+		"price": "15.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Licor 43",
+		"price": "17.90",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Campari",
+		"price": "18.90",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Gin Beefeater",
+		"price": "20.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Absolut",
+		"price": "25.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Smirnoff",
+		"price": "20.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Absinto",
+		"price": "20.00",
+		"description": "",
+		"categories": "drinks,destilados",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Combo Jack Daniels",
+		"price": "350.00",
+		"description": "",
+		"categories": "drinks,combos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Combo Black Label",
+		"price": "380.00",
+		"description": "",
+		"categories": "drinks,combos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Combo Red Label",
+		"price": "300.00",
+		"description": "",
+		"categories": "drinks,combos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Combo Beefeater",
+		"price": "280.00",
+		"description": "",
+		"categories": "drinks,combos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Combo Tanqueray",
+		"price": "320.00",
+		"description": "",
+		"categories": "drinks,combos",
+		"options": "",
+		"showinreduced": true
+	},
+	{
+		"title": "Tuk-Tuk",
+		"price": "60.00",
+		"description": "Uma porção de barriga de porco, beef satay e karaage de frango - chega quentinho da nossa cozinha até sua mesa, rápido como um tuk-tuk!",
+		"categories": "cozinha",
+		"options": "",
+		"showinreduced": true
+	}
+]

@@ -1,13 +1,12 @@
 "use client";
 
-import {list} from '@/modules/utils';
 import {useRouter} from 'next/navigation';
-import {scrollToTop} from '@/modules/utils';
 import {TEInput, TESelect} from 'tw-elements-react';
-import User from '@/modules/controllers/class-user';
+import {User} from 'controllers/class-user';
 import {useEffect, useMemo, useRef, useState} from 'react';
-import {Section, Content, ContentDefault, Loading} from 'components/layout-components';
-import {deleteUser, getUsers, updateUser, createUser} from '@/modules/controllers/users';
+import {Section, Content, ContentDefault, Loading} from 'components/layout';
+import {deleteUser, getUsers, updateUser, createUser} from 'controllers/users';
+import {page, parseLoginData, viewportListener, scrollTo} from 'utils/pages';
 
 export default function Main() {
 
@@ -20,36 +19,34 @@ export default function Main() {
         , [searchInputValue, setSearchInputValue] = useState( '' )
         , [menuItemData, setMenuItemData] = useState( [] )
         , [showSideMenu, setShowSideMenu] = useState( false )
-        , [menuClassName, setMenuClassName] = useState( null )
-        , [modalClassName, setModalClassName] = useState( null )
         , [formAction, setFormAction] = useState( 'edit' )
         , [tableContent, setTableContent] = useState( null )
+        , [menuTransition, setMenuTransition] = useState( false )
         , searchInputRef = useRef( null )
-        , menuRef = useRef( null )
         , router = useRouter()
         , role_names = {
             'employee': 'Funcionário',
             'admin': 'Administrador'
         };
 
-    function toggleSideMenu( bool ) {
-        if ( !bool ) {
-            setMenuClassName( 'slide-out-right' );
-            setModalClassName( 'lighten' );
+    function toggleSideMenu( content ) {
+        if ( content ) {
+            setSideMenuContent( content );
+            setMenuTransition( true );
+            setShowSideMenu( true );
+        }
+        else {
+            setMenuTransition( false );
             setTimeout( () => {
                 setShowSideMenu( false );
                 setSideMenuContent( null );
             }, 300 );
-        } else {
-            setMenuClassName( 'slide-in-right' );
-            setModalClassName( 'darken' );
-            setShowSideMenu( true );
         }
     }
 
     function newUser() {
         setFormAction( 'create' );
-        setSideMenuContent( {} );
+        toggleSideMenu( {} );
     }
 
     function removeUser( user ) {
@@ -57,126 +54,108 @@ export default function Main() {
             && deleteUser( user.id ).then( () => loadMenuContent() );
     };
 
+    function editUser( user ) {
+        setFormAction( 'edit' );
+        toggleSideMenu( user );
+    }
+
     function Menu() {
 
-        const user = sideMenuContent
-            , [userName, setUserName] = useState( user?.name ?? '' )
-            , [userPassword, setUserPassword] = useState( user?.password ?? '' )
-            , [userRole, setUserRole] = useState( user?.role ?? '' )
-            , [userEmail, setUserEmail] = useState( user?.email ?? '' )
+        const data = new User( sideMenuContent )
+            , [userName, setUserName] = useState( data.name )
+            , [userPassword, setUserPassword] = useState( data.password )
+            , [userRole, setUserRole] = useState( data.role )
+            , [userEmail, setUserEmail] = useState( data.email )
             , [submitButtonContent, setSubmitButtonContent] = useState( 'Salvar' )
-
-            , new_user = useMemo( () => {
-                return {
-                    id: user?.id,
-                    name: userName,
-                    password: userPassword,
-                    role: userRole,
-                    email: userEmail,
-                };
-            }, [userName, userPassword, userRole, userEmail] )
-
-            , dataHasChanged = useMemo( () => JSON.stringify( new_user ) !== JSON.stringify( user ), [new_user] )
-
+            , edit = formAction == 'edit'
+            , create = formAction == 'create'
             , roles = [
                 {text: "Selecione uma função", value: ""},
                 {text: "Funcionário", value: "employee"},
                 {text: "Administrador", value: "admin"},
             ]
 
+            , reset = () => setSubmitButtonContent( 'Salvar' )
             , loading = () => setSubmitButtonContent( <span className='mango-loading'></span> )
-            , reset = () => setSubmitButtonContent( 'Salvar' );
+            , dismiss = () => {
+                reset();
+                setMenuTransition( false );
+                loadMenuContent();
+            }
+
+            , dataHasChanged = useMemo( () => (
+                data.name != userName
+                || data.password != userPassword
+                || data.role != userRole
+                || data.email != userEmail
+            ), [userName, userPassword, userRole, userEmail] );
 
         async function saveUser() {
-            var __user;
             if ( dataHasChanged ) {
+
                 if ( userName == '' || userRole == '' || userPassword == '' || userEmail == '' ) {
                     alert( "Campos não podem ficar em branco." );
                     reset();
                     return;
                 }
-                else {
-                    loading();
 
-                    __user = await User.instance( new_user );
+                loading();
 
-                    formAction === 'edit' && updateUser( JSON.stringify( __user ) )
-                        .then( res => {
-                            if ( res?.status === true ) {
-                                reset();
-                                loadMenuContent();
-                            } else {
-                                console.log( res );
-                                return;
-                            }
-                        } );
+                let user = new User( {
+                    id: edit ? data.id : null,
+                    name: userName,
+                    password: userPassword,
+                    email: userEmail,
+                    role: userRole
+                } );
 
-                    formAction === 'create' && createUser( JSON.stringify( __user ) )
-                        .then( res => {
-                            if ( res?.status === true ) {
-                                reset();
-                                loadMenuContent();
-                            } else {
-                                console.log( res );
-                                return;
-                            }
-                        } );
-                }
+                if ( edit ) updateUser( user.toJson() )
+                    .then( res => res?.status
+                        ? dismiss()
+                        : console.log( res )
+                    );
+
+                if ( create ) createUser( user.toJson() )
+                    .then( res => res?.status
+                        ? dismiss()
+                        : console.log( res )
+                    );
+
             }
         }
 
-        return showSideMenu && (
-            <div className={list( 'darken fixed top-0 left-0 w-screen h-screen z-[999] backdrop-blur-[2px]', modalClassName )} data-side-menu>
-                <div ref={menuRef} className={list( 'absolute right-0 top-0 bg-neutral-700 h-full pt-8 shadow-md', menuClassName, isMobile ? 'w-screen' : 'w-[36rem]' )}>
-                    <div className='w-full flex justify-start items-center px-4 mb-4 cursor-pointer' onClick={() => toggleSideMenu( false )}>
+        return (
+            <div className={'darken fixed top-0 left-0 w-screen h-screen z-[999] backdrop-blur-[2px] ' + ( menuTransition ? 'darken' : 'lighten' )} data-side-menu>
+                <div className={'absolute right-0 top-0 bg-neutral-700 h-full pt-8 shadow-md w-[36rem] max-[820px]:w-screen ' + ( menuTransition ? 'slide-in-right' : 'slide-out-right' )}>
+                    <div className='w-full flex justify-start items-center px-4 mb-4 cursor-pointer' onClick={() => toggleSideMenu( null )}>
                         <i className="fa-solid fa-xmark fa-2xl" aria-hidden='true'></i>
                     </div>
                     <div className='p-4'>
                         <div className='mb-4 w-full p-2'>
-                            <h1 className='text-xl font-bold'>{formAction == 'edit'
-                                ? `Editar usuário '${user.name}'`
-                                : 'Criar novo usuário'
-                            }</h1>
+                            <h1 className='text-xl font-bold'>{edit ? `Editar usuário '${data.name}'` : 'Criar novo usuário'}</h1>
                         </div>
                         <div className='mb-4 w-full'>
-                            <TEInput
-                                type='text'
-                                label='Nome do usuário'
-                                defaultValue={user.name}
-                                onInput={e => setUserName( e.target.value )}
-                                className='text-white'
-                            />
+                            <TEInput type='text' label='Nome do usuário' defaultValue={data.name} onInput={e => setUserName( e.target.value )} className='text-white' />
                         </div>
                         <div className='mb-4 w-full'>
-                            <TEInput
-                                type='text'
-                                label='Email'
-                                defaultValue={user.email}
-                                onInput={e => setUserEmail( e.target.value )}
-                                className='text-white'
-                            />
+                            <TEInput type='text' label='Email' defaultValue={data.email} onInput={e => setUserEmail( e.target.value )} className='text-white' />
                         </div>
                         <div className='mb-4 w-full'>
-                            <TEInput
-                                type='password'
-                                label='Senha'
-                                defaultValue={user.password}
-                                onInput={e => setUserPassword( e.target.value )}
-                                className='text-white'
-                            />
+                            <TEInput type='password' label='Senha' defaultValue={data.password} onInput={e => setUserPassword( e.target.value )} className='text-white' />
                         </div>
                         <div className='mb-4 w-full'>
-                            <TESelect
-                                data={roles}
-                                placeholder={role_names[user.role]}
-                                onValueChange={e => setUserRole( e.value )}
-                                className='text-white'
-                            />
+                            <TESelect data={roles} placeholder={role_names[data.role]} onValueChange={e => setUserRole( e.value )} className='text-white' />
                         </div>
                     </div>
                     <div className='w-full flex items-center px-4'>
-                        <button onClick={saveUser} className={'py-1 px-4 mr-2 bg-[var(--mango-neon-orange)] border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md w-max min-w-24 flex justify-center items-center ' + ( !dataHasChanged && ' grayscale pointer-events-none opacity-50' )}>{submitButtonContent}</button>
-                        <button onClick={() => toggleSideMenu( false )} className='py-1 px-4 mr-2 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md'>Cancelar</button>
+                        <button onClick={saveUser}
+                            className={'py-1 px-4 mr-2 bg-[var(--mango-neon-orange)] border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md w-max min-w-24 flex justify-center items-center ' + ( !dataHasChanged && ' grayscale pointer-events-none opacity-50' )}>
+                            {submitButtonContent}
+                        </button>
+                        <button onClick={() => toggleSideMenu( null )}
+                            className='py-1 px-4 mr-2 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md'>
+                            Cancelar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -184,22 +163,19 @@ export default function Main() {
     };
 
     function TableRow( {data} ) {
-        var user = {
-            id: data.id,
-            name: data.name,
-            password: data.password,
-            role: data.role,
-            email: data.email
-        };
+        var user = new User( data );
         return (
-            <tr id={'user-' + user.id} className='align-middle select-none'>
+            <tr
+                id={'user-' + ( user.id || 'new-item' )}
+                className='align-middle select-none'
+                onClick={() => isMobile && isAdmin && editUser( user )}
+            >
                 <td>
                     {isAdmin
                         ? <span className='inline-flex items-center'>
-                            <span className='edit-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => {
-                                setFormAction( 'edit' );
-                                setSideMenuContent( user );
-                            }}></span>
+                            {isAdmin && <span className='edit-item hover:brightness-75 duration-100 ease-out cursor-pointer'
+                                onClick={() => editUser( user )}
+                            ></span>}
                             <span className='delete-item hover:brightness-75 duration-100 ease-out cursor-pointer' onClick={() => removeUser( user )}></span>
                             {user.name}
                         </span>
@@ -216,7 +192,7 @@ export default function Main() {
         return <li
             id={id}
             onClick={() => {
-                scrollToTop( '#item-' + id );
+                scrollTo( '#item-' + id );
                 setShowSearchModal( false );
                 setSearchInputValue( '' );
             }}
@@ -230,27 +206,21 @@ export default function Main() {
     }
 
     async function loadMenuContent() {
-        setTableContent( <tr><td colSpan={3}><span className='mango-loading'></span></td></tr> );
+        !isLoading && setIsLoading( true );
         var data = await getUsers();
-        setMenuItemData( data );
+        setShowSideMenu( false );
         setSideMenuContent( null );
+        setMenuItemData( data );
+        setIsLoading( false );
     }
 
     useEffect( () => {
-        require( '@/modules/lib/font-awesome' );
-        document.title = "Mango Café Administração";
-        var userData = JSON.parse( localStorage.getItem( 'mango_login_data' ) );
-
-        if ( !userData?.auth ) router.replace( '/admin/login/' );
-        else loadMenuContent().then( () => setIsLoading( false ) );
-
-        setIsAdmin( userData?.user.role === 'admin' );
-
-        const checkScreenSize = () => setIsMobile( window.visualViewport.width <= 820 );
-        checkScreenSize();
-        window.visualViewport.addEventListener( 'resize', checkScreenSize );
-
-        return () => window.visualViewport.removeEventListener( 'resize', checkScreenSize );
+        const listener = viewportListener( setIsMobile );
+        page( "Mango Café - Administração" );
+        parseLoginData( router, setIsAdmin );
+        listener.add();
+        loadMenuContent().then( () => setIsLoading( false ) );
+        return listener.remove;
     }, [] );
 
     useEffect( () => {
@@ -272,10 +242,6 @@ export default function Main() {
     }, [showSearchModal] );
 
     useEffect( () => {
-        toggleSideMenu( sideMenuContent !== null );
-    }, [sideMenuContent] );
-
-    useEffect( () => {
         menuItemData &&
             setTableContent( menuItemData.map(
                 ( i, k ) => <TableRow key={k} data={i} />
@@ -287,7 +253,7 @@ export default function Main() {
 
             {isLoading && <Loading />}
 
-            <Menu />
+            {showSideMenu && <Menu />}
 
             <div id='dashboard-header' className='relative z-40 flex items-center p-4 w-screen top-0 left-0 bg-neutral-900 shadow-lg'>
                 <div className='block h-full aspect-square w-8 bg-no-repeat bg-contain mx-4' style={{backgroundImage: 'url(/img/svg/mascot.svg)'}}></div>
@@ -304,8 +270,8 @@ export default function Main() {
                         <div className="flex items-center justify-between mb-4">
 
                             <div className="flex items-center align-middle max-[820px]:hidden">
-                                <h1 className='mango-neon-orange text-3xl font-bold mr-4'>Itens do cardápio</h1>
-                                {isAdmin && <button className='py-1 px-4 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md' onClick={newUser}>Novo item</button>}
+                                <h1 className='mango-neon-orange text-3xl font-bold mr-4'>Usuários cadastrados</h1>
+                                {isAdmin && <button className='py-1 px-4 mango-neon-orange border border-[color:var(--mango-neon-orange)] duration-150 ease-out hover:brightness-75 rounded-md' onClick={newUser}>Novo usuário</button>}
                             </div>
 
                             <div className='relative flex justify-between items-center w-96 bg-neutral-700 rounded-full p-1 px-3 max-[820px]:w-full' ref={searchInputRef}>

@@ -1,13 +1,14 @@
 "use server";
-import {QueryResultRow, createPool} from "@vercel/postgres";
-import User from "./class-user";
+import {QueryResult, QueryResultRow, createPool} from "@vercel/postgres";
+import {User, UserType} from "controllers/class-user";
+import {compare, hash} from "bcrypt";
 
 const pool = createPool( {connectionString: process.env.POSTGRES_URL} );
 
 export async function getUsers(): Promise<QueryResultRow[]> {
-    var res: QueryResultRow[];
+    let res: QueryResultRow[];
     try {
-        var {rows} = await pool.sql`SELECT * FROM users ORDER BY id ASC;`;
+        const {rows} = await pool.sql`SELECT * FROM users ORDER BY id ASC;`;
         res = rows;
     }
     catch {
@@ -16,21 +17,22 @@ export async function getUsers(): Promise<QueryResultRow[]> {
     return res;
 }
 
-export async function getUser( email: string ): Promise<QueryResultRow | null> {
-    var res: QueryResultRow | null;
+export async function getUser( email: string ): Promise<string> {
+    let res: QueryResult, user: UserType | null = null;
     try {
-        var {rows} = await pool.sql`SELECT * FROM users WHERE email = ${email}`;
-        res = rows[0] || null;
+        res = await pool.sql`SELECT * FROM users WHERE email = ${email}`;
+        user = res.rows[0];
     }
-    catch {
-        res = null;
+    catch ( e: unknown ) {
+        console.log( e?.toString() );
     }
-    return res;
+    return JSON.stringify( user );
 }
 
 export async function createUser( userJson: string ): Promise<StatusMessage> {
-    let user: User = JSON.parse( userJson );
-    var res: StatusMessage = {status: undefined, message: ''};
+    const user: User = JSON.parse( userJson )
+        , res: StatusMessage = {status: undefined, message: ''};
+    user.password = await hash( user.password, 10 );
     try {
         await pool.sql`
             INSERT INTO users ( name, slug, email, role, password )
@@ -43,15 +45,16 @@ export async function createUser( userJson: string ): Promise<StatusMessage> {
             );
         `; res.status = true;
     }
-    catch ( err: any ) {
-        res.status = err.toString();
+    catch ( err: unknown ) {
+        res.status = err?.toString();
     }
     return res;
 }
 
 export async function updateUser( userJson: string ): Promise<StatusMessage> {
-    let user: User = JSON.parse( userJson );
-    var res: StatusMessage = {status: undefined, message: ''};
+    const user: User = JSON.parse( userJson )
+        , res: StatusMessage = {status: undefined, message: ''};
+    user.password = await hash( user.password, 10 );
     try {
         await pool.sql`
             UPDATE users SET 
@@ -63,48 +66,51 @@ export async function updateUser( userJson: string ): Promise<StatusMessage> {
             WHERE id = ${user.id};
         `; res.status = true;
     }
-    catch ( err: any ) {
-        res.status = err.toString();
+    catch ( err: unknown ) {
+        res.status = err?.toString();
     }
     return res;
 }
 
 export async function deleteUser( id: number ): Promise<StatusMessage> {
-    var res: StatusMessage = {status: undefined, message: ''};
+    const res: StatusMessage = {status: undefined, message: ''};
     try {
         await pool.sql`DELETE FROM users WHERE id = ${id}`;
         res.status = true;
     }
-    catch ( err: any ) {
-        res.status = err.toString();
+    catch ( err: unknown ) {
+        res.status = err?.toString();
     }
     return res;
 }
 
 export async function createDefaultUser() {
     let user = new User( {
-        name: 'admin',
+        name: 'Gustavo Mendes',
         role: 'admin',
         password: '@Mango2024',
-        email: 'ianlucamendes02@gmail.com'
+        email: 'recadosmartin@gmail.com'
     } );
-    await createUser( JSON.stringify( user ) );
+    return await createUser( user.toJson() );
 }
 
-export async function verifyUser( data: UserData ) {
-        let hasher = User.getHasher()
-        , response: StatusMessage = {}
-        , __user = await getUser( data.email );
+export async function verifyUser( data: UserType ) {
+    const userData = await getUser( data.email )
+        , user: UserType = JSON.parse( userData )
+        , auth = await compare( data.password, user.password )
+        , response: StatusMessage = {};
 
-    if ( __user && __user.password ) {
+    if ( user && user.password ) {
         response.status = 'ok';
         response.data = {
-            auth: hasher.CheckPassword(data.password, __user.password),
-            user: __user
-        }
+            auth: auth,
+            user: user,
+            data: data,
+        };
     } else {
         response.status = 'error';
         response.message = 'user not found';
     }
-    return response;
+
+    return JSON.stringify( response );
 }

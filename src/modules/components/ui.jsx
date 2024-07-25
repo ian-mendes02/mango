@@ -1,6 +1,6 @@
 'use client';
 import {useRef} from 'react';
-import {list} from '../utils';
+import {list} from 'utils/strings';
 
 export const Caret = ( props ) => (
     <svg className={'caret ' + props.className} fill={props.fill || '#1E3050'} version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 12 12" style={{enableBackground: 'new 0 0 12 12'}} xmlSpace="preserve" width={props.width || '12px'} height={props.width || '12px'}>

@@ -32,6 +32,15 @@
       ],
       "components/*": [
         "./src/modules/components/*"
+      ],
+      "controllers/*": [
+        "./src/modules/controllers/*"
+      ],
+      "lib/*": [
+        "./src/modules/lib/*"
+      ],
+      "utils/*": [
+        "./src/modules/utils/*"
       ]
     },
     "plugins": [

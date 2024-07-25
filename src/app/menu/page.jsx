@@ -1,12 +1,12 @@
 "use client";
 import {useEffect, useMemo, useRef, useState} from 'react';
-import {Wrapper, Container, Loading} from 'components/layout-components';
+import {Wrapper, Container, Loading} from '@/modules/components/layout';
 import {getMenuItems} from '@/modules/controllers/menu';
-import {scrollToCenter} from '@/modules/utils';
+import {scrollTo} from '@/modules/utils/pages';
 export default function Main() {
 
     const [isLoading, setIsLoading] = useState( true )
-        , [backgroundFrameContent, setBackgroundFrameContent] = useState( null )
+        //, [backgroundFrameContent, setBackgroundFrameContent] = useState( null )
         , [isMainFrameActive, setIsMainFrameActive] = useState( true )
         , [searchTabOpacity, setSearchTabOpacity] = useState( 0 )
         , [searchModalOpacity, setSearchModalOpacity] = useState( 0 )
@@ -43,7 +43,7 @@ export default function Main() {
         return <li
             id={id}
             onClick={() => {
-                scrollToCenter( '#item-' + id );
+                scrollTo( '#item-' + id, 'center' );
                 setShowSearchModal( false );
                 setSearchInputValue( '' );
                 setSearchTabOpacity( 0 );
@@ -52,7 +52,7 @@ export default function Main() {
         >{name}</li>;
     }
 
-    function ListItemDrink( {id, name, price, description, mediaUrl = null, hasSubpage = false} ) {
+    function ListItemDrink( {id, name, price, description/* , mediaUrl = null */, hasSubpage = false} ) {
         function showItemSubpage() {
             setIsMainFrameActive( false );
         }
@@ -73,7 +73,7 @@ export default function Main() {
         );
     }
 
-    function ListItem( {id, name, price, description, options = [], mediaUrl = null, hasSubpage = false} ) {
+    function ListItem( {id, name, price, description, options = []/* , mediaUrl = null */, hasSubpage = false} ) {
         function showItemSubpage() {
             setIsMainFrameActive( false );
         }
@@ -268,7 +268,7 @@ export default function Main() {
                     </button>
                 </div>
 
-                {backgroundFrameContent}
+                {/* {backgroundFrameContent} */}
             </div>
 
         </main>

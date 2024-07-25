@@ -1,116 +1,42 @@
 'use client';
-import {useState, useEffect, useRef, useMemo} from 'react';
-import {Section, Content, ContentDefault, Container, Wrapper, Loading, Divider, Grid} from 'components/layout-components';
-import {Gallery} from 'components/gallery';
-import {list, url, scrollToTop} from 'modules/utils';
 import '@/assets/css/carousel.css';
+import {page, scrollTo, viewportListener} from 'utils/pages';
+import {list, url} from 'utils/strings';
+import {useState, useEffect} from 'react';
+import {Gallery} from 'components/gallery';
+import {Grid, Section, Content, Divider, Wrapper, Loading, Container, ContentDefault} from 'components/layout';
 
 export default function Main() {
 
     const [isMobile, setisMobile] = useState( false )
         , [isLoading, setIsLoading] = useState( true )
-        /* , [showSideMenu, setShowSideMenu] = useState( false )
-        , [menuClassName, setMenuClassName] = useState( null )
-        , [modalClassName, setModalClassName] = useState( null )
-        , menuRef = useRef( null )
-        , menuButtonRef = useRef( null ) */
         , socials = {
             instagram: "https://www.instagram.com/mangocafesjc/",
             facebook: "https://www.facebook.com/profile.php?id=61558132046582",
             whatsapp: "https://wa.me/5512997828401"
         };
 
-    useEffect( () => {
-        require( '@/modules/lib/font-awesome' );
-        const checkScreenSize = () => setisMobile( window.visualViewport.width <= 820 );
-        checkScreenSize();
-        window.visualViewport.addEventListener( 'resize', checkScreenSize );
-        return () => window.visualViewport.removeEventListener( 'resize', checkScreenSize );
-    }, [] );
-
-    /* function toggleSideMenu( bool ) {
-        if ( !bool ) {
-            setMenuClassName( 'slide-out' );
-            setModalClassName( 'lighten' );
-            setTimeout( () => setShowSideMenu( false ), 300 );
-        } else {
-            setMenuClassName( 'slide-in' );
-            setModalClassName( 'darken' );
-            setShowSideMenu( true );
-        }
-    } */
-
-    /* const Menu = ( {options} ) => {
-        const Option = ( {name, target, icon} ) => {
-            return (
-                <li
-                    className='p-4 hover:bg-slate-800 duration-150 ease-out cursor-pointer border-b border-slate-800 last-of-type:border-none flex items-center'
-                    onClick={() => {scrollToTop( target ); toggleSideMenu( false );}}>
-                    <span><i className={`fa-solid fa-${icon} align-text-bottom mr-4`} aria-hidden='true'></i>{name}</span>
-                </li>
-            );
-        };
-        const _options = useMemo(
-            () => options.map(
-                ( i, k ) => <Option
-                    key={k}
-                    name={i.name}
-                    target={i.target}
-                    icon={i.icon}
-                /> ), [options]
-        );
-        useEffect( () => {
-            let validTouchInput = e => {
-                var btn = menuButtonRef.current, menu = menuRef.current, t = e.target;
-                return btn != t && !btn?.contains( t ) && !menu?.contains( t );
-            };
-            let handleClickOutside = e => validTouchInput( e ) && toggleSideMenu( false );
-            window.addEventListener( 'mousedown', handleClickOutside );
-            return () => window.removeEventListener( 'mousedown', handleClickOutside );
-        }, [] );
-
-        return showSideMenu && (
-            <div className={list( 'darken fixed top-0 left-0 w-screen h-screen z-[999] backdrop-blur-[2px]', modalClassName )} data-side-menu>
-                <div ref={menuRef} className={list( 'bg-slate-700 h-full pt-8 shadow-md', menuClassName, isMobile ? 'w-[75vw]' : 'w-96' )}>
-                    <div className='w-full flex justify-end pr-4' onClick={() => toggleSideMenu( false )}>
-                        <i className="fa-solid fa-xmark fa-2xl" aria-hidden='true'></i>
-                    </div>
-                    <ul className='list-none pt-8'>{_options}</ul>
-                </div>
-            </div>
-        );
-    }; */
-
     function Title( {name, price, className} ) {
         var value = price?.split( "," );
         return (
-            <h3 className={list( 'mango-neon-orange font-semibold text-xl', className )}>{name}
+            <h3 className={list( 'mango-neon-orange font-semibold text-xl', className )}>
+                {name}
                 {value && <span> - {value[0]}<sup><small>,{value[1]}</small></sup></span>}
             </h3>
         );
     }
 
-    useEffect( () => setIsLoading( false ), [] );
+    useEffect( () => {
+        const listener = viewportListener( setisMobile );
+        page( "Mango Café" );
+        listener.add();
+        setIsLoading( false );
+        return listener.remove;
+    }, [] );
 
     return (
         <main>
             {isLoading && <Loading />}
-
-            {/* {isMobile && <Menu options={[
-                {name: 'Home', target: '#header', icon: 'house'},
-                {name: 'Drinks', target: '#drinks', icon: 'martini-glass-citrus'},
-                {name: 'Festival', target: '#festival', icon: 'champagne-glasses'},
-                {name: 'Cardápio', target: '#cardapio', icon: 'utensils'}
-            ]} />}
-
-            {isMobile && <div className='fixed top-0 right-0 w-full flex p-2 justify-end z-50 bg-slate-900 bg-opacity-90 shadow-md backdrop-blur-sm' ref={menuButtonRef}>
-                <div
-                    className='p-2'
-                    onClick={() => toggleSideMenu( true )}
-                >
-                    <i className="fa-solid fa-bars fa-2xl mango-neon-orange" aria-hidden='true'></i>
-                </div>
-            </div>} */}
 
             <Section id='header' className='shadow-md pb-0 min-[821px]:!pt-0 max-[820px]:after:bg-bottom-right max-[820px]:pt-8'>
                 <Content className='relative z-10 h-full '>
@@ -137,15 +63,15 @@ export default function Main() {
                         </Wrapper>
                         <Wrapper className='text-white text-xs items-center'>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
-                                onClick={() => scrollToTop( '#header' )}>HOME</span>
+                                onClick={() => scrollTo( '#header' )}>HOME</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
-                                onClick={() => scrollToTop( '#sobre' )}>SOBRE O MANGO</span>
+                                onClick={() => scrollTo( '#sobre' )}>SOBRE O MANGO</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
-                                onClick={() => scrollToTop( '#festival' )}>FESTIVAL OMAKASE</span>
+                                onClick={() => scrollTo( '#festival' )}>FESTIVAL OMAKASE</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
-                                onClick={() => scrollToTop( '#drinks' )}>DRINKS</span>
+                                onClick={() => scrollTo( '#drinks' )}>DRINKS</span>
                             <span className='mr-4 hover:text-[var(--mango-tropical-pink)] cursor-pointer duration-100 ease-out'
-                                onClick={() => scrollToTop( '#cardapio' )}>CARDÁPIO</span>
+                                onClick={() => scrollTo( '#cardapio' )}>CARDÁPIO</span>
                         </Wrapper>
                     </div>}
                     <ContentDefault className='py-16'>
@@ -181,7 +107,7 @@ export default function Main() {
                                 </div>
                                 <a
                                     className='flex items-center justify-center w-full h-16 bg-[var(--mango-tropical-maroon)] font-extralight cursor-pointer hover:bg-[var(--mango-neon-purple)] duration-150 ease-out rounded-bl-md rounded-br-md'
-                                    onClick={() => scrollToTop( '#cardapio' )}
+                                    onClick={() => scrollTo( '#cardapio' )}
                                 >
                                     <p>CONFIRA NOSSO CARDÁPIO</p>
                                 </a>
@@ -197,7 +123,7 @@ export default function Main() {
                                 </div>
                                 <a
                                     className='flex items-center justify-center w-full h-16 bg-[var(--mango-tropical-maroon)] font-extralight cursor-pointer hover:bg-[var(--mango-neon-pink)] duration-150 ease-out rounded-bl-md rounded-br-md'
-                                    onClick={() => scrollToTop( '#drinks' )}
+                                    onClick={() => scrollTo( '#drinks' )}
                                 >
                                     <p>CONFIRA NOSSOS DRINKS</p>
                                 </a>
@@ -263,7 +189,7 @@ export default function Main() {
                                             <p className='text-sm font-light'>Tequila José Cuervo Prata, licor fino, suco de limão tahiti e gelo, servido em uma taça com crosta de sal.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url('img/drinks/margarita.webp')}}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url( 'img/drinks/margarita.webp' )}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -272,7 +198,7 @@ export default function Main() {
                                             <p className='text-sm font-light'>Pisco capel, suco de limão tahiti, xarope de açúcar demerara, bitter floral e cubos de gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url('img/drinks/pisco_sour.webp')}}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url( 'img/drinks/pisco_sour.webp' )}}></div>
                                         </Container>
                                     </Grid>
                                     <Grid className='grid-cols-2 text-left max-[820px]:!text-center w-[32rem] max-[820px]:!w-full gap-4 max-[820px]:!grid-cols-1'>
@@ -281,7 +207,7 @@ export default function Main() {
                                             <p className='text-sm font-light'>Campari, Jack Daniels, Vermute Cinzano, Bitter floral e cubos de gelo.</p>
                                         </Container>
                                         <Container className='justify-center max-[820px]:!items-center max-[820px]:!order-first'>
-                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url('img/drinks/boulevardier.webp')}}></div>
+                                            <div className='rounded-full shadow-lg w-1/2 max-[820px]:!w-32 aspect-square bg-center bg-cover' style={{backgroundImage: url( 'img/drinks/boulevardier.webp' )}}></div>
                                         </Container>
                                     </Grid>
                                 </Grid>
@@ -329,12 +255,13 @@ export default function Main() {
                             </Gallery>
                             <Container className='min-[821px]:hidden w-full my-4'>
                                 <p className='text-xs italic text-white'>Para a sua segurança e bem-estar, caso tenha alergias ou restrições alimentares, favor avisar nossa equipe. O Mango agradece sua colaboração!</p>
-                                </Container>
+                            </Container>
                         </Wrapper>
                         <Container className='mt-8'>
                             <a
                                 href={socials.instagram}
                                 target='_blank'
+                                rel='noreferrer'
                                 className='font-bold mango-neon-orange rounded-full border-2 border-[color:var(--mango-neon-orange)] px-4 py-2 mx-auto hover:border-[color:var(--mango-neon-purple)] hover:text-[var(--mango-neon-purple)] duration-200 ease-out'
                             >
                                 Veja mais no nosso Instagram <i className='fa-solid fa-external-link' aria-hidden="true"></i>
@@ -414,6 +341,7 @@ export default function Main() {
                             <a
                                 href={isMobile ? '/menu' : '/menu/cardapio-mango.pdf'}
                                 target='_blank'
+                                rel='noreferrer'
                                 className='font-bold mango-neon-orange rounded-full border-2 border-[color:var(--mango-neon-orange)] px-4 py-2 mx-auto hover:border-[color:var(--mango-neon-pink)] hover:text-[var(--mango-neon-pink)] duration-200 ease-out'
                             >
                                 Veja nosso cardápio completo <i className='fa-solid fa-external-link' aria-hidden="true"></i>
